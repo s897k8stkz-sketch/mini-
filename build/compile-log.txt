@@ -63,177 +63,177 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd) [1{/var/lib/texmf/fo
 nts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 []|\OT1/cmr/m/n/10 Retired
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--215
+Underfull \hbox (badness 10000) in paragraph at lines 218--218
 []|\OT1/cmr/m/n/10 Statement drift
 
-Underfull \hbox (badness 1024) in paragraph at lines 217--217
+Underfull \hbox (badness 1024) in paragraph at lines 220--220
 []|\OT1/cmr/m/n/10 Quantifier or con-
 
-Underfull \hbox (badness 2261) in paragraph at lines 219--219
+Underfull \hbox (badness 2261) in paragraph at lines 222--222
 []|\OT1/cmr/m/n/10 Unsound in-fer-ence
 
-Underfull \hbox (badness 10000) in paragraph at lines 221--221
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
 []|\OT1/cmr/m/n/10 Undischarged as-
 
-Overfull \hbox (2.28111pt too wide) in paragraph at lines 227--227
+Overfull \hbox (2.28111pt too wide) in paragraph at lines 230--230
 []|\OT1/cmr/m/n/10 attribution| 
 
-Underfull \hbox (badness 10000) in paragraph at lines 229--229
+Underfull \hbox (badness 10000) in paragraph at lines 232--232
 []|\OT1/cmr/m/n/10 Contamination or
 
-Overfull \hbox (2.28111pt too wide) in paragraph at lines 229--229
+Overfull \hbox (2.28111pt too wide) in paragraph at lines 232--232
 []|\OT1/cmr/m/n/10 attribution| 
 
-Underfull \hbox (badness 1824) in paragraph at lines 229--230
+Underfull \hbox (badness 1824) in paragraph at lines 232--233
 []|\OT1/cmr/m/n/10 A bench-mark re-sult ob-tained on
 [4]
-Overfull \hbox (1.2893pt too wide) in paragraph at lines 287--287
+Overfull \hbox (1.2893pt too wide) in paragraph at lines 290--290
 []|\OT1/cmr/m/n/10 Tier| 
 
-Underfull \hbox (badness 3503) in paragraph at lines 289--289
+Underfull \hbox (badness 3503) in paragraph at lines 292--292
 \OT1/cmr/m/n/10 an-swer, no in-de-pen-
 
-Underfull \hbox (badness 2351) in paragraph at lines 291--292
+Underfull \hbox (badness 2351) in paragraph at lines 294--295
 []|\OT1/cmr/m/n/10 Statistical agree-ment:
 
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
 \OT1/cmr/m/n/10 re-peated sam-pling,
 
-Underfull \hbox (badness 5832) in paragraph at lines 291--292
+Underfull \hbox (badness 5832) in paragraph at lines 294--295
 \OT1/cmr/m/n/10 vot-ing, out-come re-
 
-Underfull \hbox (badness 2326) in paragraph at lines 292--292
+Underfull \hbox (badness 2326) in paragraph at lines 295--295
 \OT1/cmr/m/n/10 un-der the model's own
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--294
-[]|\OT1/cmr/m/n/10 F1--F5, F7--
-
-Underfull \hbox (badness 2293) in paragraph at lines 294--295
-\OT1/cmr/m/n/10 nal arith-metic, com-
-
-Underfull \hbox (badness 2653) in paragraph at lines 294--295
-\OT1/cmr/m/n/10 puter al-ge-bra, coun-
-
-Underfull \hbox (badness 10000) in paragraph at lines 295--295
-[]|\OT1/cmr/m/n/10 Refutation of con-crete
-
-Underfull \hbox (badness 1924) in paragraph at lines 295--296
-[]|$\OML/cmm/m/it/10 O\OT1/cmr/m/n/10 (1)$ per
 
 Underfull \hbox (badness 10000) in paragraph at lines 296--297
 []|\OT1/cmr/m/n/10 F1--F5, F7--
 
-Underfull \hbox (badness 5446) in paragraph at lines 297--298
+Underfull \hbox (badness 2293) in paragraph at lines 297--298
+\OT1/cmr/m/n/10 nal arith-metic, com-
+
+Underfull \hbox (badness 2653) in paragraph at lines 297--298
+\OT1/cmr/m/n/10 puter al-ge-bra, coun-
+
+Underfull \hbox (badness 10000) in paragraph at lines 298--298
+[]|\OT1/cmr/m/n/10 Refutation of con-crete
+
+Underfull \hbox (badness 1924) in paragraph at lines 298--299
+[]|$\OML/cmm/m/it/10 O\OT1/cmr/m/n/10 (1)$ per
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+[]|\OT1/cmr/m/n/10 F1--F5, F7--
+
+Underfull \hbox (badness 5446) in paragraph at lines 300--301
 \OT1/cmr/m/n/10 with ex-plicit lemma
 
-Underfull \hbox (badness 1215) in paragraph at lines 297--298
+Underfull \hbox (badness 1215) in paragraph at lines 300--301
 \OT1/cmr/m/n/10 de-pen-den-cies (pro-cess
 
-Underfull \hbox (badness 6725) in paragraph at lines 298--298
+Underfull \hbox (badness 6725) in paragraph at lines 301--301
 \OT1/cmr/m/n/10 step un-der stated hy-
 
-Underfull \hbox (badness 3039) in paragraph at lines 299--300
+Underfull \hbox (badness 3039) in paragraph at lines 302--303
 []|\OT1/cmr/m/n/10 F1, F2, F5,
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--300
+Underfull \hbox (badness 10000) in paragraph at lines 303--303
 []|\OT1/cmr/m/n/10 Formal ver-i-fi-ca-tion:
 
-Underfull \hbox (badness 3482) in paragraph at lines 300--300
+Underfull \hbox (badness 3482) in paragraph at lines 303--303
 \OT1/cmr/m/n/10 state-ment and proof
 
-Underfull \hbox (badness 10000) in paragraph at lines 303--304
+Underfull \hbox (badness 10000) in paragraph at lines 306--307
 []|\OT1/cmr/m/n/10 Independent ad-ver-
 
-Underfull \hbox (badness 1688) in paragraph at lines 303--304
+Underfull \hbox (badness 1688) in paragraph at lines 306--307
 \OT1/cmr/m/n/10 sar-ial au-dit: fi-delity
 
-Underfull \hbox (badness 3792) in paragraph at lines 303--304
+Underfull \hbox (badness 3792) in paragraph at lines 306--307
 \OT1/cmr/m/n/10 re-view, ci-ta-tion and
 
-Underfull \hbox (badness 10000) in paragraph at lines 303--304
+Underfull \hbox (badness 10000) in paragraph at lines 306--307
 \OT1/cmr/m/n/10 prove-nance check,
 
-Underfull \hbox (badness 10000) in paragraph at lines 303--304
+Underfull \hbox (badness 10000) in paragraph at lines 306--307
 \OT1/cmr/m/n/10 con-tam-i-na-tion check,
 
-Underfull \hbox (badness 4341) in paragraph at lines 303--304
+Underfull \hbox (badness 4341) in paragraph at lines 306--307
 \OT1/cmr/m/n/10 re-pro-duc-tion from a
 
-Underfull \hbox (badness 3701) in paragraph at lines 304--305
+Underfull \hbox (badness 3701) in paragraph at lines 307--308
 []|\OT1/cmr/m/n/10 Detection of state-ment,
 
-Underfull \hbox (badness 1342) in paragraph at lines 304--305
+Underfull \hbox (badness 1342) in paragraph at lines 307--308
 \OT1/cmr/m/n/10 at-tri-bu-tion, and pro-cess
 
-Underfull \hbox (badness 10000) in paragraph at lines 305--305
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\OT1/cmr/m/n/10 human-
 
-Overfull \hbox (2.32097pt too wide) in paragraph at lines 305--305
+Overfull \hbox (2.32097pt too wide) in paragraph at lines 308--308
 \OT1/cmr/m/n/10 dependent| 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
+Underfull \hbox (badness 10000) in paragraph at lines 309--310
 []|\OT1/cmr/m/n/10 unintended
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
+Underfull \hbox (badness 10000) in paragraph at lines 309--310
 \OT1/cmr/m/n/10 de-fects out-
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
+Underfull \hbox (badness 10000) in paragraph at lines 309--310
 \OT1/cmr/m/n/10 side the
 [5] [6] [7]
-Underfull \hbox (badness 3449) in paragraph at lines 433--433
+Underfull \hbox (badness 3449) in paragraph at lines 494--494
 []|\OT1/cmr/m/n/10 Majority vote and self-
 
-Underfull \hbox (badness 8019) in paragraph at lines 435--435
+Underfull \hbox (badness 8019) in paragraph at lines 496--496
 []|\OT1/cmr/m/n/10 Outcome re-ward model
 
-Underfull \hbox (badness 10000) in paragraph at lines 436--437
+Underfull \hbox (badness 10000) in paragraph at lines 497--498
 []|\OT1/cmr/m/n/10 Process re-ward model,
 
-Underfull \hbox (badness 5533) in paragraph at lines 436--437
+Underfull \hbox (badness 5533) in paragraph at lines 497--498
 \OT1/cmr/m/n/10 step su-per-vi-sion ([]Light-
 
-Underfull \hbox (badness 1490) in paragraph at lines 438--438
+Underfull \hbox (badness 1490) in paragraph at lines 499--499
 \OT1/cmr/m/n/10 ter-nal cor-rec-tor ([]Welleck
 
-Underfull \hbox (badness 10000) in paragraph at lines 440--440
+Underfull \hbox (badness 10000) in paragraph at lines 501--501
 []|\OT1/cmr/m/n/10 Intrinsic self-correction
 
-Underfull \hbox (badness 10000) in paragraph at lines 443--444
+Underfull \hbox (badness 10000) in paragraph at lines 504--505
 []|\OT1/cmr/m/n/10 Autoformalisation plus
 
-Underfull \hbox (badness 5696) in paragraph at lines 445--445
+Underfull \hbox (badness 5696) in paragraph at lines 506--506
 []|\OT1/cmr/m/n/10 Generator plus ex-ter-nal
 
-Underfull \hbox (badness 10000) in paragraph at lines 445--445
+Underfull \hbox (badness 10000) in paragraph at lines 506--506
 \OT1/cmr/m/n/10 crit-ics (LLM-Modulo)
 
-Underfull \hbox (badness 10000) in paragraph at lines 445--445
+Underfull \hbox (badness 10000) in paragraph at lines 506--506
 \OT1/cmr/m/n/10 ([]Kamb-ham-pati et al.[],
 
-Overfull \hbox (0.92409pt too wide) in paragraph at lines 445--446
+Overfull \hbox (0.92409pt too wide) in paragraph at lines 506--507
 []|\OT1/cmr/m/n/10 T3$+$T5| 
-[8] [9] (./paper.bbl [10] [11])
-Underfull \hbox (badness 10000) in paragraph at lines 572--572
+[8] [9] [10] (./paper.bbl [11] [12] [13])
+Underfull \hbox (badness 10000) in paragraph at lines 641--641
 []|\OT1/cmr/m/n/10 Claim
 
-Underfull \hbox (badness 10000) in paragraph at lines 572--572
+Underfull \hbox (badness 10000) in paragraph at lines 641--641
 []|\OT1/cmr/m/n/10 Residual
 
-Underfull \hbox (badness 10000) in paragraph at lines 572--573
+Underfull \hbox (badness 10000) in paragraph at lines 641--642
 []|\OT1/cmr/m/n/10 Evidence
 
-Underfull \hbox (badness 10000) in paragraph at lines 573--574
+Underfull \hbox (badness 10000) in paragraph at lines 642--643
 []|\OT1/cmr/m/n/10 Fidelity
 
-Underfull \hbox (badness 5417) in paragraph at lines 575--575
+Underfull \hbox (badness 5417) in paragraph at lines 644--644
 []|\OT1/cmr/m/n/10 F1, F5,
 
-Underfull \hbox (badness 5417) in paragraph at lines 575--575
+Underfull \hbox (badness 5417) in paragraph at lines 644--644
 \OT1/cmr/m/n/10 F7, F8,
-[12] [13] (./paper.aux)
+[14] (./paper.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
@@ -255,6 +255,7 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (13 pages, 249018 bytes).
+lic/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/symbols/msbm10.pfb>
+Output written on paper.pdf (14 pages, 266446 bytes).
 Transcript written on paper.log.
