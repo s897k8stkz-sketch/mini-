@@ -1,0 +1,88 @@
+name: Build paper (C2)
+
+# 目的：对 paper.tex 执行真实的 LaTeX 编译，产出可公开核验的编译证据
+# （PDF + 编译日志 + 未解析引用检查）。用于消除「核心交付物未经真实编译验证」的短板。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'paper.tex'
+      - 'references.bib'
+      - '.github/workflows/build-paper.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live (pdflatex + bibtex) and poppler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-bibtex-extra texlive-fonts-recommended poppler-utils
+
+      - name: Report toolchain versions
+        run: |
+          pdflatex --version | head -n 2
+          bibtex --version | head -n 1
+
+      - name: Compile (pdflatex -> bibtex -> pdflatex -> pdflatex)
+        run: |
+          pdflatex -interaction=nonstopmode paper.tex > compile-pass1.log 2>&1 || true
+          bibtex paper > bibtex.log 2>&1 || true
+          pdflatex -interaction=nonstopmode paper.tex > compile-pass2.log 2>&1 || true
+          pdflatex -interaction=nonstopmode paper.tex > compile-pass3.log 2>&1 || true
+          echo '--- pass 1 (tail) ---'; tail -n 20 compile-pass1.log
+          echo '--- bibtex ---'; cat bibtex.log
+          echo '--- pass 3 (tail) ---'; tail -n 20 compile-pass3.log
+
+      - name: Verify output and emit evidence
+        run: |
+          test -f paper.pdf || { echo '::error::paper.pdf was not produced'; exit 1; }
+          echo '== artifact =='; ls -l paper.pdf; file paper.pdf
+          echo '== page info =='; pdfinfo paper.pdf | grep -E 'Pages|Page size|Producer' || true
+          echo '== Output written line =='
+          grep -E 'Output written on paper.pdf' compile-pass3.log || {
+            echo '::error::no "Output written" line in final pass log'; exit 1; }
+          echo '== unresolved citations / references =='
+          if grep -E 'Citation .* undefined|Reference .* undefined|There were undefined references' compile-pass3.log; then
+            echo '::error::undefined citations or cross-references remain'; exit 1
+          fi
+          echo 'OK: 0 undefined citations, 0 undefined cross-references'
+          echo '== warning count =='
+          grep -c 'LaTeX Warning' compile-pass3.log || true
+
+      - name: Run summary
+        if: always()
+        run: |
+          {
+            echo '## C2 paper build evidence'
+            echo ''
+            echo '```'
+            grep -E 'Output written on paper.pdf' compile-pass3.log || echo '(no Output written line)'
+            echo '```'
+            echo ''
+            echo "- undefined citations/cross-references: $(grep -cE 'Citation .* undefined|Reference .* undefined' compile-pass3.log || true)"
+            echo "- LaTeX warnings in final pass: $(grep -c 'LaTeX Warning' compile-pass3.log || true)"
+            echo "- bibtex log:"; echo '```'; cat bibtex.log; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload build evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-build-evidence
+          path: |
+            paper.pdf
+            compile-pass1.log
+            compile-pass3.log
+            bibtex.log
