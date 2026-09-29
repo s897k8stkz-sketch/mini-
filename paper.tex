@@ -45,9 +45,12 @@ audit protocol with a claim-level provenance ledger. The central practical claim
 that formal verification retires inference-soundness defects but cannot retire
 statement-fidelity or provenance defects, so a reliable AI4Math pipeline must pair a
 formal tier with an independent adversarial audit tier. We state the boundaries of
-the framework explicitly: it is a literature-grounded analytic synthesis, not a
-controlled experiment, and its cost classes are order-of-magnitude estimates rather
-than measured timings.
+the framework explicitly: it is a literature-grounded analytic synthesis, and its cost
+classes are order-of-magnitude estimates rather than measured timings. Where measurement
+is possible we supply it: the source compiles under a pinned CI toolchain with no
+undefined references and the build log is committed with the paper, and a hand-built
+probe of the fidelity gate catches 14 of 16 injected statement drifts with zero false
+alarms on 6 faithful controls, while exposing a blind spot for converse swaps.
 \end{abstract}
 
 \section{Introduction}
@@ -358,6 +361,64 @@ meaning'' cannot discharge the obligation either: it relocates the judgement to 
 and reviews the specification, without removing it. A fully formal specification of intention
 would refute this remark; for open mathematical claims we know of none.
 
+\subsection{A reproducible probe of the fidelity gate}
+\label{sec:probe}
+
+The previous subsection argues that the fidelity gate cannot be replaced by formal checks. It
+does not follow that the gate is unmechanisable. To fix how far mechanisation goes, we built a
+minimal checker, ran it on a hand-built probe set, and put both in the artefact
+(\texttt{c2-f1-probe/}); the numbers below are reproduced in continuous integration on every
+change.
+
+The checker reads four surface features from a statement -- condition atoms drawn from a 24-word
+table (\texttt{nonzero}, \texttt{positive}, \texttt{continuous}, \texttt{bounded},
+\texttt{compact}, \texttt{prime}, \ldots), the quantifier class (universal or existential), the
+numerals occurring in the sentence, and the count of strict inequalities -- and compares an intent
+statement against its formalisation. A differing quantifier class is reported as F2, any other
+difference as F1, and no difference raises no alarm. The probe set holds 22 (intent, formalisation)
+pairs: 16 injected drifts across four surface classes (missing side condition 4, changed bound 3,
+changed strictness 3, quantifier misplacement 4) plus 2 converse or direction swaps that are
+surface-identical by construction, against 6 faithful controls. Ground-truth labels were fixed
+before the checker ran.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Probe of the mechanical fidelity check (\texttt{python run-probe.py}). Proportions
+describe this checker on this hand-built probe set, not a population.}
+\label{tab:probe}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Quantity & Value \\
+\midrule
+pairs / drifted / faithful controls & 22 / 16 / 6 \\
+injected drifts detected & 14 \\
+coverage on injected drifts & 14/16 = 0.875 \\
+coverage, F1 class (surface changes) & 10/10 = 1.000 \\
+coverage, F2 class & 4/6 = 0.667 \\
+false alarms on faithful controls & 0/6 = 0.000 \\
+precision when an alarm is raised & 14/14 = 1.000 \\
+defect class correct when flagged & 14/14 = 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two findings matter for the framework. First, the whole surface-visible class of F1 is
+mechanisable at negligible precision cost: all ten cases of missing side conditions, changed
+bounds, and changed strictness were flagged, with zero false alarms on the controls, so the check
+can run in a pipeline without adding review noise. Second, the F2 class split. Quantifier
+misplacement was caught in all four cases, but both converse and direction swaps were missed, and
+the reason is structural rather than an implementation gap: ``differentiable implies continuous''
+and ``continuous implies differentiable'' differ in no atom, no numeral, no quantifier class, and
+no inequality count. This is the empirical form of the argument above -- no check over the sentence
+alone can separate a claim from its converse -- which is why the gate must still be signed by a
+party that did not write the formalisation.
+
+The same standard applies to the artefact itself. \texttt{paper.tex} is compiled in continuous
+integration on every change to the source or the bibliography, and the PDF, the full \LaTeX{} log,
+and a machine-generated evidence file are committed under \texttt{build/}, so the claim that the
+paper compiles can be checked without trusting the authors.
+
 \subsection{Three worked examples}
 
 \textbf{Example 1 (F1, invisible to the kernel).} The intended claim is that for every odd
@@ -508,14 +569,18 @@ absence.
 We state the boundaries of what this paper establishes.
 
 \begin{enumerate}[leftmargin=*,itemsep=2pt]
-\item \textbf{No controlled measurement.} The framework is a literature-grounded analytic
-synthesis. We report no defect rates, no inter-annotator agreement, and no measured timings; the
-cost classes in Table~\ref{tab:tiers} are order-of-magnitude estimates, and a reader who needs
-rates must collect them.
+\item \textbf{One probe, not a controlled measurement.} The framework is a literature-grounded
+analytic synthesis. The only measurement in this paper is the fidelity probe of
+Section~\ref{sec:probe}: 22 hand-built pairs, not a random sample, so its proportions describe
+this checker on this probe set and must not be read as defect rates. We report no inter-annotator
+agreement and no measured timings; the cost classes in Table~\ref{tab:tiers} remain
+order-of-magnitude estimates, and a reader who needs rates must collect them.
 \item \textbf{The fidelity gate is the weakest joint.} Item~3 of the protocol carries the largest
-share of the residual risk and is the least mechanised part of the framework. We did not measure
-how often independent reviewers agree on fidelity judgements, and a disagreement-prone gate would
-undermine the tier it is meant to support.
+share of the residual risk. Section~\ref{sec:probe} shows the gate is partly mechanisable: the
+surface-visible part of F1 fell to a 24-word checker at zero false-alarm cost, so a machine check
+narrows the gate rather than closing it. We still did not measure how often independent reviewers
+agree on fidelity judgements, and a disagreement-prone gate would undermine the tier it is meant
+to support.
 \item \textbf{The taxonomy is not proven exhaustive.} F1--F10 are grounded in the literature we
 cite and in the examples we worked, but new model families and new tool interfaces will produce
 defect classes we have not named. The framework tolerates this by construction -- an unnamed defect
@@ -543,17 +608,21 @@ do not solve. Verification is layered, the layers are not interchangeable, and t
 mechanised layer on offer -- formal proof -- is silent about whether the sentence it certified is
 the sentence that was meant. We proposed a ten-item failure taxonomy, a six-level tier framework
 with an explicit coverage profile, two propositions that fix the tier order and explain why
-residual risk is structural, and a twelve-item audit protocol backed by a claim-level ledger.
+residual risk is structural, a twelve-item audit protocol backed by a claim-level ledger, and a
+reproducible probe that fixes how far the fidelity gate can be mechanised.
 
 The framework reduces to three instructions. Report the tier, never the adjective. Pair the formal
 tier with an adversarial audit, because they retire disjoint defect classes. Treat ``certified''
 as relative to a check set, and publish the residual set wherever a claim is quoted outside its own
 paper.
 
-Two lines of work follow. The empirical one is to measure defect rates and inter-reviewer agreement
-for the fidelity gate, the framework's weakest joint. The constructive one is to build tooling that
-refuses to render a claim without a tier label, turning the ledger into a property of the writing
-environment rather than a task performed afterwards.
+Two lines of work follow. The empirical one is to grow the fidelity probe of
+Section~\ref{sec:probe} from a hand-built set into a sampled one and to measure inter-reviewer
+agreement for the gate, the framework's weakest joint; the probe already shows where that
+measurement must concentrate, namely on converse and direction errors, which no check over the
+sentence alone can reach. The constructive one is to build tooling that refuses to render a claim
+without a tier label, turning the ledger into a property of the writing environment rather than a
+task performed afterwards.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
