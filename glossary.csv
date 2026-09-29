@@ -1,0 +1,74 @@
+en,zh,category,note
+vibe coding,氛围编程,核心概念,首次出现写作「氛围编程（vibe coding）」，之后统一用「氛围编程」
+coding agent,编码智能体,核心概念,不使用「编程代理」「代码智能体」
+AI-native software development,AI 原生软件开发,核心概念,词间保留空格
+Model Context Protocol (MCP),模型上下文协议（MCP）,核心概念,首次完整，之后统一用 MCP
+MCP server,MCP 服务器,核心概念,不译作「服务端」
+MCP client,MCP 客户端,核心概念,
+agent skills,智能体技能,核心概念,
+spec-driven development,规格驱动开发,核心概念,
+loop engineering,循环工程,核心概念,
+software factory,软件工厂,核心概念,
+context engineering,上下文工程,核心概念,
+context window,上下文窗口,核心概念,
+system prompt,系统提示词,核心概念,不使用「系统提示」
+prompt engineering,提示词工程,核心概念,
+tool schema,工具模式,核心概念,schema 在工具语境统一译「模式」
+tool calling,工具调用,核心概念,
+function calling,函数调用,核心概念,
+chain of thought,思维链,提示技术,
+self-consistency prompting,自洽性提示,提示技术,
+k-shot prompting,k 样本提示,提示技术,k 保留小写字母
+few-shot prompting,少样本提示,提示技术,
+zero-shot,零样本,提示技术,
+reflexion,反思循环（Reflexion）,提示技术,保留英文括注
+retrieval-augmented generation (RAG),检索增强生成（RAG）,提示技术,
+embedding,嵌入向量,提示技术,
+vector database,向量数据库,提示技术,
+retrieval,检索,提示技术,
+reranking,重排序,提示技术,
+agent loop,智能体循环,智能体架构,
+subagent,子智能体,智能体架构,
+delegation,委派,智能体架构,
+planning mode,计划模式,智能体架构,
+task list,任务清单,智能体架构,
+plan file,计划文件,智能体架构,
+guardrail,护栏,智能体架构,
+destructive-operation gate,破坏性操作闸门,智能体架构,
+system-reminder,系统提醒（system-reminder）,智能体架构,标签名保留原文
+trace,调用轨迹,可观测性,
+session,会话,可观测性,
+flow,流量记录,可观测性,mitmproxy 语境
+reverse proxy,反向代理,网络,
+man-in-the-middle (MITM),中间人（MITM）,网络,
+request body,请求体,网络,
+redaction,脱敏,安全,
+secret,密钥,安全,
+credential,凭据,安全,
+OAuth,OAuth 授权,安全,保留英文
+access token,访问令牌,安全,
+refresh token,刷新令牌,安全,
+scope,授权范围,安全,OAuth 语境；非 OAuth 语境译「作用域」
+rate limit,速率限制,安全,
+idempotency,幂等性,工程实践,
+structured error,结构化错误,工程实践,
+retry,重试,工程实践,
+backoff,退避,工程实践,
+lint,静态检查,工程实践,
+pre-commit hook,提交前钩子,工程实践,
+test suite,测试套件,工程实践,
+fixture,测试夹具,工程实践,
+conftest,conftest 共享配置,工程实践,保留文件名
+endpoint,端点,后端,
+router,路由,后端,
+service layer,服务层,后端,
+schema (Pydantic),数据模式,后端,Pydantic 语境
+database migration,数据库迁移,后端,
+seed data,种子数据,后端,
+dependency injection,依赖注入,后端,
+observability,可观测性,后端,
+evaluation,评测,教学,
+rubric,评分量规,教学,
+Gradescope,Gradescope,教学,平台名不译
+writeup,书面报告,教学,
+teaching assistant (TA),助教,教学,

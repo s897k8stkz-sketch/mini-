@@ -1,0 +1,291 @@
+{
+  "weeks_checked": 8,
+  "weeks_passed": 8,
+  "weeks_failed": 0,
+  "heading_coverage": 1.0,
+  "thresholds": {
+    "min_line_ratio": 0.6
+  },
+  "results": [
+    {
+      "week": "week1",
+      "source": "source-cs146s-fall2025\\week1\\assignment.md",
+      "translation": "course-cn/week1-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 6 / 原文标题 6"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 44 / 原文非空行 41 = 1.07（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 6,
+        "cn_headings": 6,
+        "src_lines": 41,
+        "cn_lines": 44,
+        "ratio": 1.073
+      }
+    },
+    {
+      "week": "week2",
+      "source": "source-cs146s-fall2025\\week2\\assignment.md",
+      "translation": "course-cn/week2-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 12 / 原文标题 12"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 56 / 原文非空行 53 = 1.06（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 12,
+        "cn_headings": 12,
+        "src_lines": 53,
+        "cn_lines": 56,
+        "ratio": 1.057
+      }
+    },
+    {
+      "week": "week3",
+      "source": "source-cs146s-fall2025\\week3\\assignment.md",
+      "translation": "course-cn/week3-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 6 / 原文标题 6"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 48 / 原文非空行 45 = 1.07（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 6,
+        "cn_headings": 6,
+        "src_lines": 45,
+        "cn_lines": 48,
+        "ratio": 1.067
+      }
+    },
+    {
+      "week": "week4",
+      "source": "source-cs146s-fall2025\\week4\\assignment.md",
+      "translation": "course-cn/week4-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 14 / 原文标题 14"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 110 / 原文非空行 107 = 1.03（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 14,
+        "cn_headings": 14,
+        "src_lines": 107,
+        "cn_lines": 110,
+        "ratio": 1.028
+      }
+    },
+    {
+      "week": "week5",
+      "source": "source-cs146s-fall2025\\week5\\assignment.md",
+      "translation": "course-cn/week5-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 14 / 原文标题 14"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 83 / 原文非空行 81 = 1.02（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 14,
+        "cn_headings": 14,
+        "src_lines": 81,
+        "cn_lines": 83,
+        "ratio": 1.025
+      }
+    },
+    {
+      "week": "week6",
+      "source": "source-cs146s-fall2025\\week6\\assignment.md",
+      "translation": "course-cn/week6-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 12 / 原文标题 12"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 43 / 原文非空行 41 = 1.05（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 12,
+        "cn_headings": 12,
+        "src_lines": 41,
+        "cn_lines": 43,
+        "ratio": 1.049
+      }
+    },
+    {
+      "week": "week7",
+      "source": "source-cs146s-fall2025\\week7\\assignment.md",
+      "translation": "course-cn/week7-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 8 / 原文标题 8"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 45 / 原文非空行 43 = 1.05（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 8,
+        "cn_headings": 8,
+        "src_lines": 43,
+        "cn_lines": 45,
+        "ratio": 1.047
+      }
+    },
+    {
+      "week": "week8",
+      "source": "source-cs146s-fall2025\\week8\\assignment.md",
+      "translation": "course-cn/week8-讲义.md",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "章节覆盖率",
+          "result": "PASS",
+          "detail": "译文标题 10 / 原文标题 10"
+        },
+        {
+          "name": "段落覆盖率",
+          "result": "PASS",
+          "detail": "译文非空行 57 / 原文非空行 55 = 1.04（阈值 0.6）"
+        },
+        {
+          "name": "无禁用占位符",
+          "result": "PASS",
+          "detail": "未发现占位符"
+        },
+        {
+          "name": "无明显残留英文段落",
+          "result": "PASS",
+          "detail": "未发现整句残留英文"
+        }
+      ],
+      "stats": {
+        "src_headings": 10,
+        "cn_headings": 10,
+        "src_lines": 55,
+        "cn_lines": 57,
+        "ratio": 1.036
+      }
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "glossary_entries": 73,
+  "categories": [
+    "可观测性",
+    "后端",
+    "安全",
+    "工程实践",
+    "提示技术",
+    "教学",
+    "智能体架构",
+    "核心概念",
+    "网络"
+  ],
+  "translated_files": [
+    "00-课程总览.md",
+    "week1-讲义.md",
+    "week2-讲义.md",
+    "week3-讲义.md",
+    "week4-讲义.md",
+    "week5-讲义.md",
+    "week6-讲义.md",
+    "week7-讲义.md",
+    "week8-讲义.md"
+  ],
+  "findings": [
+    {
+      "file": "00-课程总览.md",
+      "term_en": "coding agent",
+      "expected_zh": "编码智能体",
+      "en_occurrences": 1,
+      "zh_occurrences": 3,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "00-课程总览.md",
+      "term_en": "MCP server",
+      "expected_zh": "MCP 服务器",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "00-课程总览.md",
+      "term_en": "agent skills",
+      "expected_zh": "智能体技能",
+      "en_occurrences": 1,
+      "zh_occurrences": 0,
+      "issue": "译文出现该英文术语但未使用规定中文译法"
+    },
+    {
+      "file": "00-课程总览.md",
+      "term_en": "spec-driven development",
+      "expected_zh": "规格驱动开发",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "00-课程总览.md",
+      "term_en": "loop engineering",
+      "expected_zh": "循环工程",
+      "en_occurrences": 1,
+      "zh_occurrences": 0,
+      "issue": "译文出现该英文术语但未使用规定中文译法"
+    },
+    {
+      "file": "00-课程总览.md",
+      "term_en": "software factory",
+      "expected_zh": "软件工厂",
+      "en_occurrences": 1,
+      "zh_occurrences": 2,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week1-讲义.md",
+      "term_en": "tool calling",
+      "expected_zh": "工具调用",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week1-讲义.md",
+      "term_en": "self-consistency prompting",
+      "expected_zh": "自洽性提示",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week1-讲义.md",
+      "term_en": "k-shot prompting",
+      "expected_zh": "k 样本提示",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week1-讲义.md",
+      "term_en": "reflexion",
+      "expected_zh": "反思循环（Reflexion）",
+      "en_occurrences": 2,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week1-讲义.md",
+      "term_en": "retrieval",
+      "expected_zh": "检索",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week4-讲义.md",
+      "term_en": "subagent",
+      "expected_zh": "子智能体",
+      "en_occurrences": 1,
+      "zh_occurrences": 2,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week3-讲义.md",
+      "term_en": "OAuth",
+      "expected_zh": "OAuth 授权",
+      "en_occurrences": 3,
+      "zh_occurrences": 0,
+      "issue": "译文出现该英文术语但未使用规定中文译法"
+    },
+    {
+      "file": "week8-讲义.md",
+      "term_en": "scope",
+      "expected_zh": "授权范围",
+      "en_occurrences": 1,
+      "zh_occurrences": 0,
+      "issue": "译文出现该英文术语但未使用规定中文译法"
+    },
+    {
+      "file": "week4-讲义.md",
+      "term_en": "lint",
+      "expected_zh": "静态检查",
+      "en_occurrences": 3,
+      "zh_occurrences": 2,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week5-讲义.md",
+      "term_en": "lint",
+      "expected_zh": "静态检查",
+      "en_occurrences": 1,
+      "zh_occurrences": 2,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "00-课程总览.md",
+      "term_en": "Gradescope",
+      "expected_zh": "Gradescope",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week4-讲义.md",
+      "term_en": "Gradescope",
+      "expected_zh": "Gradescope",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week5-讲义.md",
+      "term_en": "Gradescope",
+      "expected_zh": "Gradescope",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week6-讲义.md",
+      "term_en": "Gradescope",
+      "expected_zh": "Gradescope",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week7-讲义.md",
+      "term_en": "Gradescope",
+      "expected_zh": "Gradescope",
+      "en_occurrences": 1,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week2-讲义.md",
+      "term_en": "writeup",
+      "expected_zh": "书面报告",
+      "en_occurrences": 2,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week4-讲义.md",
+      "term_en": "writeup",
+      "expected_zh": "书面报告",
+      "en_occurrences": 3,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week5-讲义.md",
+      "term_en": "writeup",
+      "expected_zh": "书面报告",
+      "en_occurrences": 2,
+      "zh_occurrences": 1,
+      "issue": "英文与中文并存（首次出现时允许，需确认是否为术语标注）"
+    },
+    {
+      "file": "week7-讲义.md",
+      "term_en": "writeup",
+      "expected_zh": "书面报告",
+      "en_occurrences": 2,
+      "zh_occurrences": 0,
+      "issue": "译文出现该英文术语但未使用规定中文译法"
+    },
+    {
+      "file": "week8-讲义.md",
+      "term_en": "writeup",
+      "expected_zh": "书面报告",
+      "en_occurrences": 2,
+      "zh_occurrences": 0,
+      "issue": "译文出现该英文术语但未使用规定中文译法"
+    }
+  ],
+  "findings_count": 26
+}
