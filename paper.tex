@@ -1,0 +1,582 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[round]{natbib}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\newcommand{\tier}{\operatorname{tier}}
+\newcommand{\Lean}{\textsf{Lean}}
+
+\title{Reliability Tiers for AI-Assisted Mathematics:\\
+A Verification-Centred Framework, Failure Taxonomy, and Audit Protocol}
+\author{Challenge C2 Submission\thanks{Prepared as a submission for Challenge C2
+(AI for Math). The companion AI log records the literature search, every machine
+verification step, and every AI-generated claim that was checked by hand.}}
+\date{September 30, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language models increasingly produce mathematical arguments that read like
+proofs but fail under scrutiny. The research community has responded with three
+families of remedies: sampling and self-consistency, learned verifiers with
+process supervision, and formal theorem proving. Practitioners still lack a way to
+state what a given artefact has actually been checked for. This paper makes that
+question explicit. We contribute (i) a ten-item failure taxonomy for AI-generated
+mathematical claims (F1--F10) that separates statement-level defects from
+inference-level, numeric, attributional, and reproducibility defects; (ii) a
+six-level verification tier framework (T0--T5) in which each tier is characterised
+by the guarantee it can and cannot provide, its cost class, and the defects it
+retires; (iii) two propositions explaining why tiers are monotone and why no sound
+and complete computable verifier for arithmetic exists, which forces any usable
+framework to report residual risk rather than certify truth; and (iv) a twelve-item
+audit protocol with a claim-level provenance ledger. The central practical claim is
+that formal verification retires inference-soundness defects but cannot retire
+statement-fidelity or provenance defects, so a reliable AI4Math pipeline must pair a
+formal tier with an independent adversarial audit tier. We state the boundaries of
+the framework explicitly: it is a literature-grounded analytic synthesis, not a
+controlled experiment, and its cost classes are order-of-magnitude estimates rather
+than measured timings.
+\end{abstract}
+
+\section{Introduction}
+
+Mathematical reasoning was long treated as a domain where machine output could be
+checked cheaply: a result is either proved or it is not. Recent systems have made
+that intuition feel achievable. AlphaGeometry solves olympiad-level geometry
+problems without human demonstration \citep{trinh2024alphageometry}, FunSearch
+discovers new mathematical constructions by searching over programs
+\citep{romera2024funsearch}, and neural provers interacting with the
+\Lean{} proof assistant make measurable progress on formal benchmarks
+\citep{zheng2021minif2f,yang2023leandojo,lin2024leanstar}.
+
+The same literature documents a persistent reliability gap. Language models score
+highly on mathematical word problems \citep{cobbe2021gsm8k,hendrycks2021math} while
+remaining brittle in ways that matter: performance degrades when a problem statement
+gains a semantically irrelevant clause \citep{mirzadeh2024gsmsymbolic}, intrinsic
+self-correction can lower accuracy rather than raise it
+\citep{huang2024selfcorrect}, models assert incorrect numerical relationships with
+confidence, and generated bibliographies contain fabricated entries
+\citep{ji2023hallucination}. A reader who encounters a fluent paragraph labelled
+``proof'' therefore learns almost nothing about its epistemic status.
+
+Our starting observation is that ``a proof'' denotes at least five different things
+in current practice: (a) a fluent informal argument, (b) an argument that several
+independent samples agree on, (c) an argument whose steps passed a learned or human
+step-level review, (d) a term accepted by a proof assistant kernel, and (e) a claim
+reproduced by an independent party. These are not interchangeable, yet downstream
+consumers -- reviewers, students, engineering teams -- tend to read them as one.
+The consequence is systematic over-trust: a claim certified at a weak level is
+quoted as if it had been certified at a strong one.
+
+This paper argues that the fix is not a better single tool but an explicit accounting
+of verification level. We contribute:
+
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item \textbf{A failure taxonomy (F1--F10).} Ten defect classes for AI-generated
+mathematical claims, organised by the layer at which the defect enters: statement,
+inference, numeric, attribution, or process (Section~\ref{sec:taxonomy}).
+\item \textbf{A tier framework (T0--T5).} A partial order on verification levels,
+each carrying a stated guarantee, a cost class, and a coverage profile over the
+taxonomy (Section~\ref{sec:framework}).
+\item \textbf{Two propositions and their consequences.} Tiers are monotone by
+construction (Prop.~\ref{prop:mono}); and by G\"odel's incompleteness theorem no
+sound and complete computable verifier for arithmetic exists
+(Prop.~\ref{prop:incomplete}), so residual risk is a structural feature of the
+problem rather than an implementation defect (Section~\ref{sec:analysis}).
+\item \textbf{An audit protocol.} A twelve-item checklist and a claim-level
+provenance ledger that make the tier of every claim auditable after the fact
+(Section~\ref{sec:protocol}).
+\end{enumerate}
+
+The framework's central operational claim is asymmetric and easy to get wrong:
+formal verification retires inference-soundness defects but \emph{cannot} retire
+statement-fidelity defects, because the fidelity of a formal statement to an
+informal intention is itself an informal judgement. Likewise no prover kernel can
+detect a fabricated citation or a contaminated benchmark. A pipeline that stops at
+the formal tier therefore remains unreliable in exactly the ways that matter for
+published mathematics. Section~\ref{sec:limitations} states where the framework is
+weak and what evidence we did not collect.
+
+\section{Related Work}
+
+\subsection{Informal mathematical reasoning with language models}
+
+Benchmark progress is the visible surface of the field. GSM8K established grade-school
+word problems as a reasoning test bed \citep{cobbe2021gsm8k}, and MATH raised the
+difficulty to competition level \citep{hendrycks2021math}. Chain-of-thought prompting
+and self-consistency -- sampling several reasoning paths and taking a majority answer --
+produced large gains and remain the default baseline
+\citep{wang2023selfconsistency}. These methods optimise the probability of a correct
+final answer. They provide no guarantee about the argument that produced it, and a
+majority answer is evidence about a model's distribution, not about the truth of a
+statement.
+
+\subsection{Learned verifiers and process supervision}
+
+A second family replaces sampling agreement with a learned critic. Outcome-based reward
+models score final answers; process supervision scores intermediate steps, and step-level
+supervision of a verifier was found to outperform outcome supervision for the purpose of
+selecting correct solutions \citep{lightman2023verify}. Uesato et al.\ compare
+process-based and outcome-based feedback for word problems \citep{uesato2022process}, and
+Math-Shepherd removes the need for human step labels by constructing them automatically
+\citep{wang2024mathshepherd}. Self-correction completes the picture only when it is driven
+by an external signal: a learned corrector that consumes such a signal improves generation
+\citep{welleck2022selfcorrect}, whereas intrinsic self-correction without external feedback
+does not reliably improve reasoning and can degrade it \citep{huang2024selfcorrect}. Models
+have partial access to their own error signal \citep{kadavath2022know}, but calibration is
+imperfect, which is why we treat self-reported confidence as weak evidence and build no
+tier on it.
+
+The epistemic status of this family is statistical. A verifier that is 90\% accurate across
+a distribution of steps does not certify that \emph{this} step is valid; it changes the
+odds. Its failure mode is therefore correlated with the generator's: both may share the
+same misconception, and neither can detect it.
+
+\subsection{Formal theorem proving and autoformalisation}
+
+The third family produces machine-checkable certificates. Proof search over formal
+libraries began with language models trained on proof steps \citep{polu2020gptf} and was
+extended by tree search over proof states \citep{lample2022hypertree}, retrieval over large
+libraries \citep{yang2023leandojo}, and interleaving of informal reasoning with tactic
+execution \citep{lin2024leanstar}; DeepSeek-Prover shows that large-scale synthetic data
+alone moves the formal benchmark frontier \citep{xin2024deepseekprover}. Benchmarks such as
+MiniF2F \citep{zheng2021minif2f} and PutnamBench \citep{tsoukalas2024putnambench} make
+these claims comparable across systems, and \Lean{}~4 provides a modern kernel and tactic
+language \citep{demoura2021lean4}.
+
+Autoformalisation is both the bridge and the weak point. Wu et al.\ translate
+natural-language competition problems into formal statements \citep{wu2022autoformalization},
+and draft--sketch--prove decomposes an informal proof into formal sketches and steps
+\citep{jiang2023draft}. In both settings the system proves a \emph{formal} sentence; whether
+that sentence is the one the author meant is decided outside the kernel. At the other end of
+the scale, AlphaGeometry closes geometry problems with a symbolic engine
+\citep{trinh2024alphageometry}, FunSearch searches over programs and produces new
+constructions \citep{romera2024funsearch}, and the Flyspeck project shows what large-scale
+formalisation really costs: a decade-long effort with twenty-two listed authors to formalise
+a single theorem \citep{hales2017kepler}.
+
+\subsection{Critiques, brittleness, and provenance}
+
+Evidence of brittleness is now systematic. Adding a semantically irrelevant clause to a word
+problem can move reported accuracy substantially across model families
+\citep{mirzadeh2024gsmsymbolic}; the mathematical behaviour of ChatGPT on well-defined tasks
+was uneven from the start \citep{frieder2023chatgpt}; and generated text, including its
+bibliographic apparatus, can be fluent and false \citep{ji2023hallucination}. Automated
+research loops that write, review, and iterate without a human in the loop are now attempted
+\citep{lu2024aiscientist}, which raises rather than lowers the value of an audit trail.
+Architectures that pair a generator with external critics -- LLM-Modulo -- are the closest
+existing relative of the tier idea \citep{kambhampati2024llmmodulo}; retrieval grounding
+reduces, but does not eliminate, unsupported assertions \citep{lewis2020rag}.
+
+What is missing from this literature is a shared currency for \emph{how much} was verified.
+Papers report pass rates at whatever tier they happen to use and leave the transfer question
+implicit. Our framework supplies the currency and, more importantly, states what each unit of
+currency cannot buy.
+
+\section{A Failure Taxonomy for AI-Generated Mathematical Claims}
+\label{sec:taxonomy}
+
+Before assigning levels we need a vocabulary of what can go wrong. We organise defects by the
+layer at which they enter a claim: the \emph{statement} (what is being asserted), the
+\emph{inference} (how it is derived), the \emph{numeric} layer (concrete quantitative
+assertions), the \emph{attribution} layer (what the claim is attached to), and the
+\emph{process} layer (how the result was produced and reported). Table~\ref{tab:taxonomy}
+lists ten classes.
+
+Two design choices matter. First, we separate F1 from F3 deliberately: a derivation that is
+internally flawless but establishes the wrong sentence is not a proof of the intended claim,
+and no formal pipeline can see the difference. Second, F7 and F8 belong to the attribution
+layer rather than the inference layer, because they are falsehoods \emph{about} the work
+rather than errors \emph{in} it; they survive every kernel and every verifier.
+
+\begin{table}[t]
+\centering
+\small
+\caption{A failure taxonomy for AI-generated mathematical claims. ``Retired at'' names the
+lowest tier whose checks can in principle detect and reject the defect; in practice a check
+may miss an instance, which is what the residual set records.}
+\label{tab:taxonomy}
+\begin{tabular}{@{}p{0.7cm}p{3.0cm}p{1.6cm}p{5.6cm}p{1.5cm}@{}}
+\toprule
+ID & Defect & Layer & Minimal illustration & Retired at \\
+\midrule
+F1 & Statement drift (misformalisation) & statement & A formal statement silently drops a
+side condition, so a different theorem is proved & T5 \\
+F2 & Quantifier or converse error & statement & Proving ``continuous implies
+differentiable'' while reporting the converse & T4/T5 \\
+F3 & Unsound inference step & inference & A step interchanges limits without justification
+& T4 \\
+F4 & Undischarged assumption & inference & A lemma is used outside the hypotheses under
+which it was proved & T4 \\
+F5 & Vacuity or triviality & inference & The hypotheses are unsatisfiable, so the theorem
+has no content & T5 \\
+F6 & Numeric or monotonicity slip & numeric & Asserting $\pi>22/7$, contradicted by
+Archimedes' bound & T2 \\
+F7 & Citation fabrication or misattribution & attribution & A bibliographic entry whose
+title or identifier does not exist & T5 \\
+F8 & Contamination or leakage & attribution & A benchmark result obtained on problems
+present in training data & T5 \\
+F9 & Over-generalisation & process & A general law asserted from a handful of examples
+& T3/T5 \\
+F10 & Irreproducible artefact & process & Results shipped without a pinned environment or a
+runnable pipeline & T5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\section{A Tiered Verification Framework}
+\label{sec:framework}
+
+\subsection{Claims, evidence, and certification}
+
+\begin{definition}[Claim]
+A claim is a tuple $c=(S,A,P,E)$, where $S$ is the statement (informal, formal, or both),
+$A$ is the set of assumptions under which $S$ is asserted, $P$ is the derivation artefact
+(a prose proof, a proof script, or a program), and $E$ is the evidence bundle, that is, the
+records produced by the checks that were run.
+\end{definition}
+
+\begin{definition}[Tier predicate]
+For $t\in\{0,\dots,5\}$, let $V_t$ be the predicate ``$c$ passes every check of tier $t$''.
+The checks are listed in Table~\ref{tab:tiers}; the check set of tier $t$ contains the check
+sets of all lower tiers.
+\end{definition}
+
+\begin{definition}[Certification]
+$c$ is \emph{certified at level} $t$, written $\tier(c)=t$, if $t$ is the largest index such
+that $V_t(c)$ holds. Certification is always relative to a tier: we never write that a claim
+is verified, only that it is certified at level $t$.
+\end{definition}
+
+\begin{definition}[Coverage and residual risk]
+$\Delta(t)\subseteq\{F1,\dots,F10\}$ denotes the defect classes that the checks of levels at
+most $t$ can in principle detect. The residual risk of a claim certified at level $t$ is
+$R(c)=\{F1,\dots,F10\}\setminus\Delta(t)$.
+\end{definition}
+
+\begin{proposition}[Monotonicity]
+\label{prop:mono}
+If $V_t(c)$ holds, then $V_{t'}(c)$ holds for every $t'\le t$.
+\end{proposition}
+\begin{proof}
+Immediate from Definition~2 by construction of the check sets. We state it because it is
+routinely violated in practice: an artefact is described as ``formally verified'' on the
+strength of the inference layer (F3--F4) while its statement fidelity (F1) was never reviewed.
+\end{proof}
+
+\begin{table}[t]
+\centering
+\small
+\caption{The tier framework. Costs are order-of-magnitude classes relative to producing the
+claim once: $1\times$ (no extra pass), $O(10)$, $O(10^{2})$, $O(10^{3})$ or more. The rightmost
+column is the part of the guarantee that the tier does \emph{not} provide.}
+\label{tab:tiers}
+\begin{tabular}{@{}p{0.6cm}p{3.5cm}p{4.0cm}p{1.5cm}p{2.4cm}p{2.2cm}@{}}
+\toprule
+Tier & Check performed & Guarantee provided & Cost & Defects retired & Cannot retire \\
+\midrule
+T0 & Generation only (prose answer, no independent check) & None; fluency is not evidence
+& $1\times$ & --- & F1--F10 \\
+T1 & Statistical agreement: repeated sampling, voting, outcome reward models
+& Confidence in the answer under the model's own distribution & $O(10)$ & partial F6
+& F1--F5, F7--F10 \\
+T2 & Mechanical numeric or symbolic check (rational arithmetic, computer algebra,
+counterexample search) & Refutation of concrete quantitative sub-claims & $O(1)$ per check
+& F6 & F1--F5, F7--F10 \\
+T3 & Structured step review with explicit lemma dependencies (process reward model or human
+reading) & Local plausibility of each step under stated hypotheses & $O(10^{2})$
+& F3, F9 (partial) & F1, F2, F5, F7, F8, F10 \\
+T4 & Formal verification: statement and proof accepted by a kernel & Derivability of the
+formal sentence from the formal hypotheses & $O(10^{3})$ & F3, F4 & F1, F2 (detection),
+F5, F7--F10 \\
+T5 & Independent adversarial audit: fidelity review, citation and provenance check,
+contamination check, reproduction from a pinned environment & Detection of statement,
+attribution, and process defects & human-dependent & F1, F2, F5, F7, F8, F10
+& unintended defects outside the audited set \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Assigning a tier}
+
+The procedure below is what a practitioner actually runs. It is written to fail closed: a
+step that cannot be completed lowers the tier rather than being skipped.
+
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item \textbf{Inventory.} Enumerate every claim the artefact makes, including claims in
+tables, captions, abstracts, and code comments.
+\item \textbf{Statement ledger.} Record $S$ and $A$ verbatim together with the intended
+informal meaning expressed in the author's own words.
+\item \textbf{Numeric pass.} Identify quantitative sub-claims and test each with an
+independent tool; Section~\ref{sec:analysis} gives a case in which this alone refutes a
+plausible claim.
+\item \textbf{Inference pass.} Attempt formalisation of each load-bearing claim. A term
+accepted by a kernel certifies the inference layer. Failure of formalisation is evidence
+about the derivation, not about the statement.
+\item \textbf{Fidelity pass.} A party that did not write the formal statement -- human or
+otherwise -- compares $S$ against the recorded intent. This gate is what retires F1 and F2.
+\item \textbf{Adversarial pass.} Attempt refutation rather than confirmation: search for
+counterexamples, verify every citation against a primary source, and check for
+contamination.
+\item \textbf{Label and disclose.} Publish the tier, the residual set $R(c)$, and the evidence
+bundle.
+\end{enumerate}
+
+Steps 3 and 4 are mechanical and largely automatable. Steps 2, 5, and 6 are judgement-bearing
+and must be assigned to an accountable party. The most common pipeline defect we observe is
+stopping after step 4 and calling the result verified.
+\section{Analysis}
+\label{sec:analysis}
+
+\subsection{Why the formal tier cannot retire statement fidelity}
+
+\begin{remark}[Argument, not a theorem]
+$\Delta(4)\cap\{F1,F2\}=\emptyset$: the checks available up to tier 4 cannot detect statement
+drift or a quantifier error.
+\end{remark}
+
+We state this as an argument rather than a theorem, and give the argument explicitly. A
+kernel checks a derivation relation between a formal sentence and a formal proof term.
+Fidelity, by contrast, is a relation between an informal intention and a formal sentence, and
+the only evidence available for it is informal. Three consequences follow. First, a successful
+kernel check is consistent with having proved a drifted statement, and a failed check is
+consistent with having mis-formalised a true one; the kernel is silent about which case obtains.
+Second, additional prover effort does not close the gap, because the object that would have to
+be checked -- the intention -- is not a formal object. Third, formalising ``the intended
+meaning'' cannot discharge the obligation either: it relocates the judgement to whoever writes
+and reviews the specification, without removing it. A fully formal specification of intention
+would refute this remark; for open mathematical claims we know of none.
+
+\subsection{Three worked examples}
+
+\textbf{Example 1 (F1, invisible to the kernel).} The intended claim is that for every odd
+prime $p$ the integer $p^{2}-1$ is divisible by $8$. A pipeline formalises the side condition
+away:
+\[
+\forall p\in\mathbb{N},\qquad \mathrm{Prime}(p)\;\Longrightarrow\;8 \mid (p^{2}-1).
+\]
+This sentence is false: $p=2$ gives $p^{2}-1=3$ and $8\nmid 3$. The prover fails, and the
+failure carries no information about the intended claim. If instead the pipeline silently
+strengthens the hypothesis until something provable appears, the artefact ships a theorem no
+reader asked for. Both paths pass through the kernel without touching the defect. The intended
+claim is true, and its one-line reason is worth recording precisely because it shows how much
+content a drift can hide: for odd $p$, the integers $p-1$ and $p+1$ are consecutive even
+numbers, so one is divisible by $4$ and the other by $2$, hence $8\mid(p-1)(p+1)=p^{2}-1$.
+
+\textbf{Example 2 (F6, refuted by a numeric pass).} A generated discussion asserts
+$\pi>22/7$. Archimedes' bounds give $223/71<\pi<22/7$, so the assertion is false; the two
+values are $22/7=3.142857\ldots$ and $\pi=3.141592\ldots$. A single rational-arithmetic check
+refutes the claim, while the familiarity of $22/7$ as an approximation of $\pi$ makes the error
+easy to miss by reading. The refutation is self-contained: no external dataset is required.
+
+\textbf{Example 3 (F3, refuted by formalisation).} A prose proof concludes that every continuous
+real function is differentiable, via a step that assumes the difference quotient has a limit at
+every point. Formalisation does not merely disagree with the proof; it fails, because the
+assumed limit does not exist for $x\mapsto|x|$ at $0$. Here the kernel earns its cost -- which is
+exactly why its silence about Examples 1 and 2 deserves to be stated rather than assumed.
+
+\subsection{Why residual risk is structural}
+
+\begin{proposition}[No sound and complete computable verifier for arithmetic]
+\label{prop:incomplete}
+Let $\mathrm{Tr}$ be the set of true sentences of first-order arithmetic. There is no computable
+procedure $M$ whose accepted set $A(M)$ satisfies both $A(M)\subseteq\mathrm{Tr}$ (soundness) and
+$A(M)=\mathrm{Tr}$ (completeness).
+\end{proposition}
+\begin{proof}[Proof sketch]
+If $A(M)=\mathrm{Tr}$, then $\mathrm{Tr}$ would be recursively enumerable, since $M$ enumerates
+it by dovetailing over all inputs. By G\"odel's first incompleteness theorem, every consistent,
+recursively axiomatised theory extending Robinson arithmetic is incomplete, and the standard
+argument shows that $\mathrm{Tr}$ is not recursively enumerable. The two claims contradict each
+other, so no such $M$ exists.
+\end{proof}
+
+The practical reading is not defeatism. It says that ``certified'' must always be read relative
+to a check set, and that the honest output of a verification pipeline is a tier plus a residual
+set, never the word \emph{true}. A writing environment that refuses to render a quoted claim
+without its tier label would have flagged every example in this section.
+
+\subsection{Coverage versus cost}
+
+Table~\ref{tab:coverage} maps the method families of Section~\ref{sec:framework} onto the
+framework. Three patterns are visible. Sampling and voting buy little: they reduce the variance of
+the answer, not the probability that the argument is wrong. Process supervision buys the inference
+layer but shares priors with the generator, so its errors correlate with the errors it is meant to
+catch. Formal proving buys the inference layer outright and is the only family that does so, at a
+cost that scales with the distance between the informal statement and the available library -- a
+decade of work by twenty-two listed authors for one theorem in the extreme case
+\citep{hales2017kepler}. Nothing in the table retires F1, F5, F7, F8, or F10 except an independent
+audit, which is why the audit sits at the top of the partial order and not at the bottom.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Method families mapped to the tier framework. ``Partial'' marks coverage that is
+statistical or restricted to a sub-class of claims; the residual set is the taxonomy minus the
+retired column.}
+\label{tab:coverage}
+\begin{tabular}{@{}p{4.1cm}p{1.1cm}p{3.2cm}p{4.4cm}@{}}
+\toprule
+Method family & Tier & Defects retired & Residual risk \\
+\midrule
+Majority vote and self-consistency \citep{wang2023selfconsistency} & T1 & F6 partial
+& F1--F5, F7--F10 \\
+Outcome reward model \citep{cobbe2021gsm8k} & T1 & F6 partial & F1--F5, F7--F10 \\
+Process reward model, step supervision \citep{lightman2023verify,uesato2022process,wang2024mathshepherd}
+& T3 & F3, F9 partial & F1, F2, F5, F7, F8, F10 \\
+Self-correction with an external corrector \citep{welleck2022selfcorrect} & T2/T3
+& F3 partial, F6 partial & F1, F2, F5, F7, F8, F10 \\
+Intrinsic self-correction without external feedback \citep{huang2024selfcorrect} & T0/T1
+& none reliable & all \\
+Retrieval grounding \citep{lewis2020rag} & T2 & F7 partial & F1, F3--F6, F8--F10 \\
+Autoformalisation plus kernel check \citep{wu2022autoformalization,jiang2023draft,yang2023leandojo}
+& T4 & F3, F4 & F1, F2 detection, F5, F7--F10 \\
+Generator plus external critics (LLM-Modulo) \citep{kambhampati2024llmmodulo} & T3$+$T5
+& F3, F4, F7, F9 & F1, F2 detection, F5, F8, F10 \\
+Independent reproduction and audit & T5 & F1, F2, F5, F7, F8, F10
+& defects outside the audited set \\
+\bottomrule
+\end{tabular}
+\end{table}
+\section{An Audit Protocol}
+\label{sec:protocol}
+
+The framework becomes usable only when it leaves the paper, so we state a twelve-item protocol
+ordered so that mechanical checks come first and judgement-bearing gates come after.
+Table~\ref{tab:protocol} lists the items together with the defects each one retires. Item~3 is
+the only item that retires F1, and item~8 is the only item that retires F7.
+
+\begin{table}[t]
+\centering
+\small
+\caption{The twelve-item audit protocol. ``Kind'' distinguishes mechanical checks from
+judgement-bearing gates; the latter are the items that must be signed by an accountable party.}
+\label{tab:protocol}
+\begin{tabular}{@{}p{0.6cm}p{7.5cm}p{1.9cm}p{3.0cm}@{}}
+\toprule
+\# & Item & Kind & Retires \\
+\midrule
+1 & Claim inventory: every claim in the artefact, including captions, abstracts, and code
+comments, is enumerated & mechanical & --- \\
+2 & Statement ledger: statement and assumptions recorded verbatim with the intended informal
+meaning in the author's words & judgement & prerequisite for F1 \\
+3 & Fidelity review by a party that did not write the formal statement & judgement & F1, F2 \\
+4 & Assumption discharge list: every imported lemma recorded with the hypotheses under which it
+holds & mechanical & F4 \\
+5 & Kernel record: prover name, version, commit hash, and the exact statement file & mechanical
+& F3, F4 \\
+6 & Numeric spot checks with an independent tool, including at least one bound or inequality
+& mechanical & F6 \\
+7 & Citation verification against a primary identifier (DOI or archive record), one entry at a
+time, with the checked identifier recorded & mechanical & F7 partial \\
+8 & Contamination check: overlap between the evaluated set and available training data, with the
+result disclosed either way & judgement & F7, F8 \\
+9 & Evidence-to-claim linkage: each claim tagged with its tier and residual set & mechanical
+& --- \\
+10 & Environment pins for reproduction: versions, seeds, and a runnable entry point & mechanical
+& F10 \\
+11 & Adversarial pass: an explicit attempt to refute each load-bearing claim rather than to
+confirm it & judgement & F5, F9 \\
+12 & Disclosure of AI involvement and of failed attempts, including abandoned branches
+& judgement & F9, F10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The protocol is backed by a ledger rather than by good intentions. For each claim we require one
+row recording the claim identifier, the statement and assumptions verbatim, the tier attained,
+the residual set, the pointer to the evidence bundle, and the name of the party who signed the
+fidelity gate (Appendix~\ref{app:ledger}). Two properties do the real work. Every claim appears
+exactly once, so a claim cannot quietly migrate to a stronger tier between drafts; and
+claims without a row are visible, so absence of evidence is distinguishable from evidence of
+absence.
+
+\section{Limitations}
+\label{sec:limitations}
+
+We state the boundaries of what this paper establishes.
+
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item \textbf{No controlled measurement.} The framework is a literature-grounded analytic
+synthesis. We report no defect rates, no inter-annotator agreement, and no measured timings; the
+cost classes in Table~\ref{tab:tiers} are order-of-magnitude estimates, and a reader who needs
+rates must collect them.
+\item \textbf{The fidelity gate is the weakest joint.} Item~3 of the protocol carries the largest
+share of the residual risk and is the least mechanised part of the framework. We did not measure
+how often independent reviewers agree on fidelity judgements, and a disagreement-prone gate would
+undermine the tier it is meant to support.
+\item \textbf{The taxonomy is not proven exhaustive.} F1--F10 are grounded in the literature we
+cite and in the examples we worked, but new model families and new tool interfaces will produce
+defect classes we have not named. The framework tolerates this by construction -- an unnamed defect
+simply belongs to the residual set -- but the taxonomy itself is not closed.
+\item \textbf{Proposition~\ref{prop:incomplete} is limitative, not constructive.} It explains why
+residual risk cannot be driven to zero. It does not tell a practitioner which checks to run, and it
+says nothing about non-arithmetic domains such as geometry, where diagrammatic evidence plays a
+role this taxonomy does not model.
+\item \textbf{Our own citation checking is bounded.} Every bibliographic entry in this paper was
+checked against a primary identifier at write time, but we did not re-derive the results we
+attribute to those works.
+\item \textbf{Automated review is not a substitute for the audit.} Nothing here licenses replacing
+human sign-off of the fidelity gate with another language model: a model auditing a model shares
+the failure distribution that motivated the audit.
+\item \textbf{Scope of the examples.} The three worked examples are didactic and arithmetic or
+analytic in character. They establish that the defects exist and are detectable at the stated
+tiers; they are not a sample from which defect frequencies can be estimated.
+\end{enumerate}
+
+\section{Conclusion}
+
+The reliability problem in AI-assisted mathematics is usually framed as a capability problem:
+models are not yet good enough at proof. That framing hides a second problem which better models
+do not solve. Verification is layered, the layers are not interchangeable, and the strongest
+mechanised layer on offer -- formal proof -- is silent about whether the sentence it certified is
+the sentence that was meant. We proposed a ten-item failure taxonomy, a six-level tier framework
+with an explicit coverage profile, two propositions that fix the tier order and explain why
+residual risk is structural, and a twelve-item audit protocol backed by a claim-level ledger.
+
+The framework reduces to three instructions. Report the tier, never the adjective. Pair the formal
+tier with an adversarial audit, because they retire disjoint defect classes. Treat ``certified''
+as relative to a check set, and publish the residual set wherever a claim is quoted outside its own
+paper.
+
+Two lines of work follow. The empirical one is to measure defect rates and inter-reviewer agreement
+for the fidelity gate, the framework's weakest joint. The constructive one is to build tooling that
+refuses to render a claim without a tier label, turning the ledger into a property of the writing
+environment rather than a task performed afterwards.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\section{Claim-level provenance ledger}
+\label{app:ledger}
+
+\begin{table}[h]
+\centering
+\small
+\caption{Ledger template. One row per claim; the fidelity column is signed by a party other than
+the author of the statement.}
+\begin{tabular}{@{}p{1.3cm}p{3.6cm}p{2.6cm}p{1.4cm}p{2.4cm}p{2.0cm}@{}}
+\toprule
+Claim ID & Statement and assumptions (verbatim) & Tier & Residual set & Evidence pointer
+& Fidelity signed by \\
+\midrule
+C-01 & \textit{(statement)} & T4 & F1, F5, F7, F8, F10 & \textit{(path or hash)} & \textit{(name)} \\
+C-02 & & & & & \\
+C-03 & & & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
