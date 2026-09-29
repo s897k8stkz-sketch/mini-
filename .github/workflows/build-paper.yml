@@ -10,6 +10,7 @@ on:
       - 'paper.tex'
       - 'references.bib'
       - '.github/workflows/build-paper.yml'
+      - 'c2-f1-probe/**'
   workflow_dispatch:
 
 permissions:
@@ -34,6 +35,13 @@ jobs:
         run: |
           pdflatex --version | head -n 2
           bibtex --version | head -n 1
+
+      - name: Reproduce the fidelity probe (statement-drift checker)
+        run: |
+          cd c2-f1-probe
+          python3 run-probe.py
+          python3 check-metrics.py | tee probe-metrics.md
+          python3 check-metrics.py >> "$GITHUB_STEP_SUMMARY"
 
       - name: Compile (pdflatex -> bibtex -> pdflatex -> pdflatex)
         run: |
@@ -86,6 +94,8 @@ jobs:
             compile-pass1.log
             compile-pass3.log
             bibtex.log
+            c2-f1-probe/probe-metrics.md
+            c2-f1-probe/probe-output/results.json
 
       # 把编译产物回写进仓库 build/ ，使证据不依赖登录即可核验（artifact 需登录才能下载）
       - name: Publish build evidence into the repository
@@ -93,6 +103,7 @@ jobs:
           mkdir -p build
           cp paper.pdf build/paper.pdf
           cp compile-pass3.log build/compile-log.txt
+          cp c2-f1-probe/probe-metrics.md build/PROBE-EVIDENCE.md
           PAGES=$(pdfinfo paper.pdf | awk '/^Pages/{print $2}')
           WRITTEN=$(grep -E 'Output written on paper.pdf' compile-pass3.log | head -n 1)
           UNDEF=$(grep -cE 'Citation .* undefined|Reference .* undefined' compile-pass3.log || true)
@@ -118,6 +129,10 @@ jobs:
             echo "$WRITTEN"
             echo '```'
             echo ''
+            echo '## fidelity probe (c2-f1-probe)'
+            echo ''
+            sed -n '1,40p' c2-f1-probe/probe-metrics.md
+            echo ''
             echo '## bibtex log'
             echo ''
             echo '```'
@@ -126,7 +141,7 @@ jobs:
           } > build/BUILD-EVIDENCE.md
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f build/paper.pdf build/compile-log.txt build/BUILD-EVIDENCE.md
+          git add -f build/paper.pdf build/compile-log.txt build/BUILD-EVIDENCE.md build/PROBE-EVIDENCE.md
           if git diff --cached --quiet; then
             echo 'no change in build evidence; nothing to publish'
           else

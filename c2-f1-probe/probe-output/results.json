@@ -1,0 +1,714 @@
+{
+  "metrics": {
+    "cases_total": 22,
+    "drift_cases": 16,
+    "controls": 6,
+    "detected": 14,
+    "missed": 2,
+    "false_positives": 0,
+    "true_negatives": 6,
+    "coverage_on_drift": 0.875,
+    "specificity_on_controls": 1.0,
+    "precision": 1.0,
+    "category_accuracy_when_flagged": 1.0,
+    "per_category": {
+      "F1": {
+        "cases": 10,
+        "detected": 10,
+        "coverage": 1.0
+      },
+      "F2": {
+        "cases": 6,
+        "detected": 4,
+        "coverage": 0.6667
+      },
+      "none": {
+        "cases": 6,
+        "detected": 0,
+        "coverage": 0.0
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "F1-drop-1",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "condition_atoms"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "nonzero"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-drop-2",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "condition_atoms"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "continuous"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "0",
+          "1"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "0",
+          "1"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-drop-3",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "condition_atoms"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "integer",
+          "odd"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1",
+          "8"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1",
+          "8"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-drop-4",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "condition_atoms"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "finite",
+          "integer",
+          "nonempty"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "finite",
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-bound-1",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "numerals"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "even",
+          "integer",
+          "positive"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "3"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "even",
+          "integer",
+          "positive"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "2"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-bound-2",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "numerals"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "divisible",
+          "prime"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1",
+          "24",
+          "5"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "divisible",
+          "prime"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1",
+          "24",
+          "3"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-bound-3",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "numerals"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "integer",
+          "prime"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "0",
+          "100",
+          "25"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "integer",
+          "prime"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "0",
+          "10",
+          "25"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-strict-1",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "strict_inequalities"
+      ],
+      "intent_feats": {
+        "atoms": [],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1"
+        ],
+        "strict": 1
+      },
+      "formal_feats": {
+        "atoms": [],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-strict-2",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "strict_inequalities"
+      ],
+      "intent_feats": {
+        "atoms": [],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "0",
+          "1"
+        ],
+        "strict": 2
+      },
+      "formal_feats": {
+        "atoms": [],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "0",
+          "1"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F1-strict-3",
+      "truth": "F1",
+      "verdict": "F1",
+      "differing": [
+        "strict_inequalities"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1",
+          "10",
+          "2"
+        ],
+        "strict": 1
+      },
+      "formal_feats": {
+        "atoms": [
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1",
+          "10",
+          "2"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F2-quant-1",
+      "truth": "F2",
+      "verdict": "F2",
+      "differing": [
+        "quantifier",
+        "condition_atoms"
+      ],
+      "intent_feats": {
+        "atoms": [],
+        "quant": [
+          "exists"
+        ],
+        "nums": [
+          "1"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "nonzero"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "1"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F2-quant-2",
+      "truth": "F2",
+      "verdict": "F2",
+      "differing": [
+        "quantifier"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "positive"
+        ],
+        "quant": [
+          "exists",
+          "forall"
+        ],
+        "nums": [],
+        "strict": 1
+      },
+      "formal_feats": {
+        "atoms": [
+          "positive"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 1
+      }
+    },
+    {
+      "id": "F2-quant-3",
+      "truth": "F2",
+      "verdict": "F2",
+      "differing": [
+        "quantifier"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "bounded",
+          "compact"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "bounded",
+          "compact"
+        ],
+        "quant": [
+          "exists"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F2-quant-4",
+      "truth": "F2",
+      "verdict": "F2",
+      "differing": [
+        "quantifier"
+      ],
+      "intent_feats": {
+        "atoms": [
+          "bounded",
+          "convergent"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "bounded",
+          "convergent"
+        ],
+        "quant": [
+          "exists"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F2-conv-1",
+      "truth": "F2",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "continuous",
+          "differentiable"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "continuous",
+          "differentiable"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "F2-conv-2",
+      "truth": "F2",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "bounded",
+          "convergent"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "bounded",
+          "convergent"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "CTL-1",
+      "truth": "none",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "even",
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "even",
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "CTL-2",
+      "truth": "none",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "positive"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "positive"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "CTL-3",
+      "truth": "none",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "bounded",
+          "compact"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "bounded",
+          "compact"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "CTL-4",
+      "truth": "none",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "continuous"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "continuous"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [],
+        "strict": 0
+      }
+    },
+    {
+      "id": "CTL-5",
+      "truth": "none",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "divisible",
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "2"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "divisible",
+          "integer"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "2"
+        ],
+        "strict": 0
+      }
+    },
+    {
+      "id": "CTL-6",
+      "truth": "none",
+      "verdict": null,
+      "differing": [],
+      "intent_feats": {
+        "atoms": [
+          "finite"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "2"
+        ],
+        "strict": 0
+      },
+      "formal_feats": {
+        "atoms": [
+          "finite"
+        ],
+        "quant": [
+          "forall"
+        ],
+        "nums": [
+          "2"
+        ],
+        "strict": 0
+      }
+    }
+  ]
+}

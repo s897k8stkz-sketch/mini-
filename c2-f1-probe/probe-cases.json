@@ -1,0 +1,29 @@
+{
+  "name": "C2 F1/F2 statement-fidelity probe set (hand-built, NOT a random sample)",
+  "scope": "Didactic probe set for the fidelity gate of the audit protocol. Each case is a pair (intent statement, formalised statement). Ground-truth labels were assigned by the author; the checker never sees them.",
+  "checker_ceiling_disclosure": "The checker uses a fixed 24-term condition vocabulary + numeral set + strict-inequality count + quantifier class. Drift outside this vocabulary, or drift that leaves all extracted features identical (e.g. a converse/direction swap), is invisible to it by construction.",
+  "cases": [
+    {"id": "F1-drop-1", "truth": "F1", "intent": "For every nonzero real x, the map f(x)=1/x satisfies f(f(x))=x.", "formal": "For every real x, the map f(x)=1/x satisfies f(f(x))=x."},
+    {"id": "F1-drop-2", "truth": "F1", "intent": "For every continuous function f on [0,1] with f(0)=f(1), f attains a maximum.", "formal": "For every function f on [0,1] with f(0)=f(1), f attains a maximum."},
+    {"id": "F1-drop-3", "truth": "F1", "intent": "For every odd integer n greater than 1, the square of n leaves remainder 1 on division by 8.", "formal": "For every integer n greater than 1, the square of n leaves remainder 1 on division by 8."},
+    {"id": "F1-drop-4", "truth": "F1", "intent": "Every nonempty finite subset of the integers has a least element.", "formal": "Every finite subset of the integers has a least element."},
+    {"id": "F1-bound-1", "truth": "F1", "intent": "For every integer n at least 3, the sum of the first n positive integers is even.", "formal": "For every integer n at least 2, the sum of the first n positive integers is even."},
+    {"id": "F1-bound-2", "truth": "F1", "intent": "For every prime p at least 5, p squared minus 1 is divisible by 24.", "formal": "For every prime p at least 3, p squared minus 1 is divisible by 24."},
+    {"id": "F1-bound-3", "truth": "F1", "intent": "For every integer n at least 100, the interval from 0 to n contains at least 25 primes.", "formal": "For every integer n at least 10, the interval from 0 to n contains at least 25 primes."},
+    {"id": "F1-strict-1", "truth": "F1", "intent": "For every real x with x < 1, the series with terms x^n converges.", "formal": "For every real x with x <= 1, the series with terms x^n converges."},
+    {"id": "F1-strict-2", "truth": "F1", "intent": "For every real x with 0 < x < 1, the square of x is less than x.", "formal": "For every real x with 0 <= x <= 1, the square of x is at most x."},
+    {"id": "F1-strict-3", "truth": "F1", "intent": "For every integer n with 1 <= n < 10, n divides 2^n minus 2.", "formal": "For every integer n with 1 <= n <= 10, n divides 2^n minus 2."},
+    {"id": "F2-quant-1", "truth": "F2", "intent": "There exists a real root of the equation x squared plus 1 equal to zero.", "formal": "For every real x, x squared plus 1 is nonzero."},
+    {"id": "F2-quant-2", "truth": "F2", "intent": "For every positive epsilon there exists a positive delta with |f(x)-f(a)| < epsilon.", "formal": "For every positive epsilon and for every positive delta, |f(x)-f(a)| < epsilon."},
+    {"id": "F2-quant-3", "truth": "F2", "intent": "Every compact subset of the real line is bounded.", "formal": "There exists a compact subset of the real line that is bounded."},
+    {"id": "F2-quant-4", "truth": "F2", "intent": "Every convergent sequence of real numbers is bounded.", "formal": "There exists a bounded sequence of real numbers that is convergent."},
+    {"id": "F2-conv-1", "truth": "F2", "intent": "Every differentiable function on the real line is continuous.", "formal": "Every continuous function on the real line is differentiable."},
+    {"id": "F2-conv-2", "truth": "F2", "intent": "Every bounded sequence of real numbers has a convergent subsequence.", "formal": "Every sequence of real numbers that has a convergent subsequence is bounded."},
+    {"id": "CTL-1", "truth": "none", "intent": "For every integer n, n is even if and only if the square of n is even.", "formal": "For every integer n, n is even if and only if the square of n is even."},
+    {"id": "CTL-2", "truth": "none", "intent": "For every positive real x, the logarithm of x is defined.", "formal": "For every real x that is positive, the logarithm of x is defined."},
+    {"id": "CTL-3", "truth": "none", "intent": "Every compact subset of the plane is bounded.", "formal": "Every compact subset of the plane is bounded."},
+    {"id": "CTL-4", "truth": "none", "intent": "Every continuous function on the closed unit interval has an integral that exists.", "formal": "For every continuous function on the closed unit interval, the integral exists."},
+    {"id": "CTL-5", "truth": "none", "intent": "For every integer n at least 2, n factorial is divisible by n.", "formal": "For every integer n at least 2, n factorial is divisible by n."},
+    {"id": "CTL-6", "truth": "none", "intent": "Every finite set S has a power set whose cardinality is 2 raised to the cardinality of S.", "formal": "For every finite set S, the cardinality of the power set of S is 2 raised to the cardinality of S."}
+  ]
+}
