@@ -1,0 +1,98 @@
+{
+  "dir": "examples/sample-incomplete",
+  "spec": "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*",
+  "min_bytes": 1,
+  "file_count": 5,
+  "ready": false,
+  "passed": 2,
+  "required": 5,
+  "requirements": [
+    {
+      "requirement": "*skill说明*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "C4-skill说明.md",
+          "size": 105,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*.skill",
+      "verdict": "MISSING",
+      "matches": [],
+      "usable": 0
+    },
+    {
+      "requirement": "*教学说明*",
+      "verdict": "MISSING",
+      "matches": [],
+      "usable": 0
+    },
+    {
+      "requirement": "*demo*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "C4-demo.md",
+          "size": 93,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*ai日志*",
+      "verdict": "EMPTY",
+      "matches": [
+        {
+          "rel": "C4-AI日志.md",
+          "size": 0,
+          "match": "exact"
+        }
+      ],
+      "usable": 0
+    }
+  ],
+  "risks": [
+    {
+      "level": "error",
+      "file": "C4-AI日志.md",
+      "note": "0 字节文件：几乎必然被判为交付物缺失"
+    },
+    {
+      "level": "warn",
+      "file": "新建文本文档.txt",
+      "note": "疑似未命名的占位文件"
+    }
+  ],
+  "inventory": [
+    {
+      "name": "C4-AI日志.md",
+      "rel": "C4-AI日志.md",
+      "size": 0
+    },
+    {
+      "name": "C4-demo.md",
+      "rel": "C4-demo.md",
+      "size": 93
+    },
+    {
+      "name": "C4-skill说明.md",
+      "rel": "C4-skill说明.md",
+      "size": 105
+    },
+    {
+      "name": "技能说明.md",
+      "rel": "技能说明.md",
+      "size": 50
+    },
+    {
+      "name": "新建文本文档.txt",
+      "rel": "新建文本文档.txt",
+      "size": 23
+    }
+  ]
+}

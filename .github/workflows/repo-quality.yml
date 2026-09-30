@@ -1,0 +1,89 @@
+name: Repo quality (C5)
+
+# 每次 push / PR 自动做三件事，防止"文档说得很全、仓库其实缺件"：
+#   1) 所有 Python 脚本必须能通过语法编译；
+#   2) 用本仓库自己的审计器审计样例目录，验证工具在真实目录上可用，
+#      并且残缺样例必须被正确判成 NOT READY（回归基线）；
+#   3) 开源仓库必备文件必须存在且非空。
+# 与 build-paper.yml 分工：那个负责论文的 LaTeX 真实编译，这个负责仓库自身健康度。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.py'
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - 'examples/**'
+      - '.github/workflows/repo-quality.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 1) Syntax check — every tracked Python file must compile
+        run: |
+          set -e
+          files=$(git ls-files '*.py')
+          if [ -z "$files" ]; then echo "no python files tracked"; exit 0; fi
+          python -m py_compile $files
+          echo "OK: all tracked Python files compile"
+          echo "$files" | wc -l | xargs echo "files checked:"
+
+      - name: 2a) Self-audit — ready sample must pass (expect exit 0)
+        run: |
+          set -e
+          python skills/challenge-deliverable-auditor/scripts/audit.py \
+            --dir examples/sample-ready \
+            --spec "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*" \
+            --json /tmp/audit-ready.json \
+            --md   /tmp/audit-ready.md
+          echo "----- audit report -----"
+          cat /tmp/audit-ready.md
+
+      - name: 2b) Self-audit — incomplete sample must be caught (expect exit 1)
+        run: |
+          set +e
+          python skills/challenge-deliverable-auditor/scripts/audit.py \
+            --dir examples/sample-incomplete \
+            --spec "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*" \
+            --quiet
+          code=$?
+          set -e
+          if [ "$code" -ne 1 ]; then
+            echo "REGRESSION: incomplete sample should exit 1, got $code"
+            exit 1
+          fi
+          echo "OK: incomplete sample correctly detected as NOT READY (exit 1)"
+
+      - name: 3) Required open-source files must exist and be non-empty
+        run: |
+          set -e
+          missing=0
+          for f in README.md LICENSE .gitignore AI_LOG.md ATTRIBUTION.md \
+                   CONTRIBUTING.md CHANGELOG.md; do
+            if [ ! -s "$f" ]; then
+              echo "MISSING or EMPTY: $f"
+              missing=1
+            else
+              echo "ok ($(wc -c < "$f") bytes): $f"
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then exit 1; fi
+          echo "OK: all 7 required files present and non-empty"

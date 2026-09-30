@@ -1,0 +1,104 @@
+{
+  "dir": "examples/sample-ready",
+  "spec": "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*",
+  "min_bytes": 1,
+  "file_count": 5,
+  "ready": true,
+  "passed": 5,
+  "required": 5,
+  "requirements": [
+    {
+      "requirement": "*skill说明*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "C4-skill说明.md",
+          "size": 119,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*.skill",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "demo-package.skill",
+          "size": 428,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*教学说明*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "C4-教学说明.md",
+          "size": 110,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*demo*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "C4-demo.md",
+          "size": 111,
+          "match": "exact"
+        },
+        {
+          "rel": "demo-package.skill",
+          "size": 428,
+          "match": "exact"
+        }
+      ],
+      "usable": 2
+    },
+    {
+      "requirement": "*ai日志*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "C4-AI日志.md",
+          "size": 113,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    }
+  ],
+  "risks": [],
+  "inventory": [
+    {
+      "name": "C4-AI日志.md",
+      "rel": "C4-AI日志.md",
+      "size": 113
+    },
+    {
+      "name": "C4-demo.md",
+      "rel": "C4-demo.md",
+      "size": 111
+    },
+    {
+      "name": "C4-skill说明.md",
+      "rel": "C4-skill说明.md",
+      "size": 119
+    },
+    {
+      "name": "C4-教学说明.md",
+      "rel": "C4-教学说明.md",
+      "size": 110
+    },
+    {
+      "name": "demo-package.skill",
+      "rel": "demo-package.skill",
+      "size": 428
+    }
+  ]
+}

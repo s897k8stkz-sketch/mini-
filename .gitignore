@@ -1,0 +1,64 @@
+# ============================================================
+# .gitignore —— 只忽略"可再生成"与"本机私有"的东西
+# 判断标准：删掉它，clone 的人能否用仓库里的命令重新生成？
+#   能 → 忽略；不能（如 CI 产出的证据）→ 必须入库。
+# ============================================================
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------- LaTeX 编译中间产物 ----------
+# 注意：build/ 下的 paper.pdf 与 compile-log.txt 是 GitHub Actions
+# 真实编译留下的证据，属于"不可再生的核验材料"，因此显式保留。
+*.aux
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc
+*.nav
+*.snm
+*.vrb
+!build/**
+
+# ---------- C1 抓取的课程原始快照 ----------
+# 体积大、且由 pipeline/fetch_sources.py 可完全复现，不入库。
+source/
+source-cs146s/
+
+# ---------- 编辑器 / IDE ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- 操作系统 ----------
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# ---------- Office / WPS 临时文件 ----------
+# 这类文件常被误当交付物一起提交，审计器会把它列为风险项。
+~$*
+*.tmp
+*.bak
+
+# ---------- 凭据：绝不入库 ----------
+.env
+.env.*
+*.key
+*.pem

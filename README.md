@@ -1,117 +1,190 @@
-# CS146S《The Modern Software Developer》中文资料包
+# challenge-deliverable-auditor · 交付物审计器
 
-> 出自挑战 **C1：课程资料获取与翻译** —— 从一手来源获取 Stanford CS146S（fall2025）全部公开作业资料，经术语表约束的翻译流水线产出可复跑的中文课程资料包，供下一批同学零成本复用。
+> **一句话说明**：在点「提交」之前，用一条命令把交付物缺口（缺件 / 空文件 / 命名不命中）暴露出来，并用退出码给出结论。
+>
+> 出自挑战 **C5：GitHub Repository** —— 把 C4 产出的技能从「我电脑上的一个文件」变成「别人 clone 下来 5 分钟能跑的开源项目」。
 
-## 一、这是什么
+输入一个目录 + 平台给出的要求清单原文（如 `*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*`），
+输出一份 Human 可读的 Markdown 报告 + 一份机器可读的 JSON 证据 + 一个退出码。
 
-本仓库把 Stanford CS146S（The Modern Software Developer，2025 秋季）公开仓库中的每周作业原文，翻译为结构一致的中文讲义，并附带一套**可复跑的抓取 → 翻译 → 校对流水线**与**统一术语表**。
-
-- 面向读者：想自学该课程但受英文阅读成本限制的同学。
-- 设计目标：换一门课的资料，用同一套流程可再次产出（管线不写死某一课）。
-- 质量约束：术语全篇统一（见 `术语表.md`）、无大段漏译、无占位符（由校验脚本硬性拦截）。
-
-## 二、目录结构
-
-```
-mini-/
-├── README.md              # 本文件：来源、覆盖范围、翻译流程、使用方法、已知缺口
-├── AI日志.md              # 每日 AI 协作日志：工具、prompt、踩坑
-├── AAR.md                 # 七维复盘
-├── 拿来说明.md            # 关键决策/产出如何借助 AI 完成（含原文、prompt、产出、对比）
-├── 术语表.md              # 73 条术语，9 个类别（由 glossary.csv 生成）
-├── glossary.csv           # 术语表源数据：en,zh,category,note
-├── course-cn/             # 中文讲义（产出）
-│   ├── 00-课程总览.md
-│   └── week1-讲义.md … week8-讲义.md
-├── pipeline/              # 流水线脚本（可复跑）
-│   ├── fetch_sources.py   # 按固定提交抓取一手作业原文 → source/
-│   ├── build_glossary.py  # 由 glossary.csv 生成 术语表.md + 术语巡检
-│   ├── verify_pipeline.py # 覆盖率/占位符/英文残留 硬校验
-│   ├── TRANSLATION-SPEC.md# 翻译规范（标题、锚点、术语、格式约定）
-│   └── run_all.ps1        # 一键串起三个脚本
-├── source/                # 上游原文快照（由 fetch_sources.py 生成）
-│   ├── weekN/
-│   └── PINNED.txt         # 固定的上游提交哈希，保证可复现
-└── reports/               # 机器可读报告
-    ├── glossary-report.json
-    └── verify-report.json
-```
-
-## 三、来源与覆盖范围
-
-**一手来源**：`mihail911/modern-software-dev-assignments`，分支 `fall2025`，固定提交 `ca2df55b78d6194612b65ae3fbfaa55a4678a683`（见 `source/PINNED.txt`）。固定提交而非跟随 HEAD，保证任何人复跑得到同一份内容。
-
-**覆盖范围**
-
-| 项目 | 情况 |
+| 退出码 | 含义 |
 | --- | --- |
-| 讲义周数 | 第 1–8 周，全部有对应中文讲义（覆盖度 100%，≥ 挑战要求的 80%） |
-| 课程总览 | `00-课程总览.md`：课程基本信息、每周主题、提交方式、环境工具 |
-| 术语表 | 73 条（挑战要求 ≥ 50），跨 9 个类别，全篇一致 |
-| 校验结果 | 8/8 周通过（标题覆盖、行数比例、占位符、英文残留四项） |
-
-**各周主题**：1 提示技术 · 2 行动项抽取器 · 3 自定义 MCP 服务器 · 4 自主编码智能体实战 · 5 Warp 智能体式开发 · 6 Semgrep 漏洞扫描与修复 · 7 Graphite AI 代码评审 · 8 多技术栈 AI 加速 Web 应用。
-
-## 四、翻译流程（机器翻译 + 术语表 + 人工校对）
-
-1. **抓取**：`fetch_sources.py` 按固定提交克隆/拉取上游仓库，逐周提取 `assignment.md`（次选 `writeup.md`/`README.md`/`docs/TASKS.md`），写入 `source/weekN/`，并记录提交哈希到 `source/PINNED.txt`。
-2. **规范化**：每篇译文首行统一为 `# 第 N 周：<中文标题>`，第二行为来源锚点 `> 原文：weekN/assignment.md ；上游提交：见 source/PINNED.txt`。
-3. **翻译**：在 `TRANSLATION-SPEC.md` 约束下逐周翻译——标题 1:1 对应，代码/路径/URL/JSON 键名不译，专有名词保留英文（Claude Code、mitmproxy、Agentic、Gradescope、Stanford、CS146S、Semgrep、Graphite、Warp、Bolt），技术表述用简洁中文。
-4. **术语对齐**：严格以 `glossary.csv` 为准（如 vibe coding→氛围编程、coding agent→编码智能体、subagent→子智能体、rubric→评分量规、writeup→书面报告）。
-5. **校对**：`verify_pipeline.py` 做四项硬校验，任一 FAIL 即退出码 1：
-   - 标题覆盖：译文标题数 ≥ 原文标题数；
-   - 行数比例：非空行比例 ≥ 0.60；
-   - 占位符：命中「略/省略/同上/TODO/待补充/此处省略」即 FAIL；
-   - 英文残留：连续 ≥ 5 个英文单词的段落（排除专有名词行）。
-6. **汇总**：`build_glossary.py` 生成 `术语表.md` 与术语巡检报告；`reports/*.json` 保留机器可读结果。
-
-## 五、如何使用（陌生人上手）
-
-1. 浏览 `course-cn/00-课程总览.md` 了解课程全貌与每周主题。
-2. 按周阅读 `course-cn/weekN-讲义.md`；每篇开头的锚点指向对应英文原文位置。
-3. 需要术语对照时查 `术语表.md`；需要核对原文时看 `source/weekN/`。
-4. 只读使用无需运行任何脚本；本仓库内容自包含。
-
-## 六、如何复跑（换一门课复用）
-
-1. 修改 `pipeline/fetch_sources.py` 顶部的 `REPO` / `BRANCH` / `PIN` 与候选文件名列表。
-2. 用新课程的术语更新 `glossary.csv`。
-3. 运行 `pipeline/run_all.ps1`（Windows PowerShell 5.1，脚本为纯 ASCII）。
-4. 按 `TRANSLATION-SPEC.md` 产出 `course-cn/weekN-讲义.md`。
-5. 再次运行 `verify_pipeline.py`，直到 8/8 通过。
-
-> 脚本自身是通用骨架；唯一与课程耦合的是抓取源与术语表。
-
-## 七、已知缺口
-
-- **官网 FAQ 未收录**：官网 `/faq` 返回 404，未取到 FAQ 内容，总览中未包含 FAQ 条目。
-- **逐讲时间表/阅读材料缺失**：官网 Fall 2025 专页与 Syllabus 页抓取失败，总览中的每周主题改用作业原文表述，未做推断性补全。
-- **第 1–3 周无提交说明**：只有第 4–8 周作业原文含 SUBMISSION INSTRUCTIONS 段，故总览的提交方式说明仅适用于后者。
-- **第二名助教待定**：官网上第二 TA 标注为 TBD。
-- **作业截止日期**：官网仅提供 Calendar 入口，正文未给具体日期，未臆造。
-
-## 八、交付物对照（C1 required_deliverables）
-
-| 要求 | 对应文件 | 状态 |
-| --- | --- | --- |
-| `README.md` | `README.md` | 本文件 |
-| `*AI日志*` | `AI日志.md` | 已产出 |
-| `*AAR*` | `AAR.md` | 已产出（七维） |
-| `*拿来说明*` | `拿来说明.md` | 已产出（≥ 3 个） |
-
-## 九、C2 交付物（AI for Math 论文）
-
-本仓库同时承载 C2 挑战的论文交付物，与 C1 的讲义管线互不依赖：
-
-| 要求 | 对应文件 | 状态 |
-| --- | --- | --- |
-| `paper.tex` | `paper.tex` | 已产出（24 个环境、28 条引用、8 节正文） |
-| `references.bib` | `references.bib` | 已产出（28 条，均为一手文献） |
-| `*AI日志*` | `C2-AI日志.md` | 已产出（含 5 例 AI 误导与失败案例） |
-| `*AAR*` | `C2-AAR.md` | 已产出（七维） |
-
-> 论文结构与文献清单以 `paper.tex` 与 `references.bib` 为准。本机未安装 TeX 引擎，因此**未执行真实编译**；编译前的静态校验（环境配对、花括号平衡、citation↔bib 双向匹配、表格列数一致、AST 解析）结果记录在 `C2-AI日志.md`。
+| `0` | READY —— 清单每一项都命中 |
+| `1` | NOT READY —— 至少一项 MISSING 或 EMPTY |
+| `2` | 用法错误（参数缺失、目录不存在等） |
 
 ---
 
-*本资料包由 C1 课程资料获取与翻译流水线产出，术语以 `glossary.csv` 为准。*
+## 一、解决什么问题
+
+每一次提交作业都有人在「缺一个文件」上翻车，而这个错误**不需要智能，只需要检查**：
+
+- 平台写的是 `*教学说明*`，你交的是 `教学指南.md` —— 语义上完全正确，规则上不匹配；
+- 用 `>` 重定向保存命令输出，写出了一个 **0 字节**的文件，自己也看不出来；
+- 报告里写「已完成 5/5」，但没有任何机器可核验的证据。
+
+审计器把这三类问题变成机器判定：**模式匹配 + 尺寸阈值 + 退出码**，并把结论落成 JSON 与
+Markdown 双份证据，供第三方复核。它不判断内容质量——那是教师与 rubric 的事。
+
+**它凭什么可信**：它对自己跑过。对一个真实仓库目录做审计，第一次输出 **1/5 项满足
+NOT READY**，补齐后输出 **5/5 项满足 READY**（43 个文件）。这两次都是真实执行结果，
+记录在 `examples/expected/` 与 `2025105400247_C4_demo.md` 中。
+
+---
+
+## 二、快速开始（clone 后 5 分钟内可跑）
+
+只依赖 **Python 3.8+ 标准库**，没有第三方包，不需要虚拟环境。
+
+```bash
+git clone https://github.com/s897k8stkz-sketch/mini-.git
+cd mini-
+
+# 用仓库自带的三份样例目录跑一遍（无需准备任何东西）
+python skills/challenge-deliverable-auditor/scripts/audit.py \
+  --dir examples/sample-ready --spec "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*" \
+  --json /tmp/audit.json --md /tmp/audit.md
+echo "exit=$?"
+```
+
+期望：`exit=0`，控制台打印 5 行 `PASS`。
+
+再跑一个**故意残缺**的样例，看它能否正确报错：
+
+```bash
+python skills/challenge-deliverable-auditor/scripts/audit.py \
+  --dir examples/sample-incomplete --spec "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*"
+echo "exit=$?"
+```
+
+期望：`exit=1`，并列出 `MISSING` / `EMPTY` 的具体文件名。两个命令都跑通，就说明环境没问题。
+
+> Windows PowerShell 用户把续行符 `\` 换成反引号 `` ` ``，或把命令写成一行。
+
+---
+
+## 三、使用
+
+```bash
+python skills/challenge-deliverable-auditor/scripts/audit.py \
+  --dir <要审计的目录> \
+  --spec "<要求清单原文，逗号分隔>" \
+  [--min-bytes N] [--json out.json] [--md out.md] [--quiet]
+```
+
+| 参数 | 必填 | 默认 | 说明 |
+| --- | --- | --- | --- |
+| `--dir` | 是 | — | 被审计的目录 |
+| `--spec` | 是 | — | 要求清单，逗号分隔；支持 `*` 通配，如 `*AI日志*` |
+| `--min-bytes` | 否 | `1` | 小于该字节数视为 EMPTY（默认 0 字节即空文件） |
+| `--json` | 否 | — | 把机器可读结果写到指定路径 |
+| `--md` | 否 | — | 把 Markdown 报告写到指定路径 |
+| `--quiet` | 否 | 关 | 只输出结论行，不打印逐项明细 |
+
+**四种判定**（`verdict` 枚举，全部来自真实运行，不是设计意图）：
+
+| verdict | 含义 |
+| --- | --- |
+| `PASS` | 有文件精确命中该模式且大于尺寸阈值 |
+| `PASS_FUZZY` | 未精确命中，但存在大小写/全半角/空格归一化后命中的文件（提示而非通过） |
+| `EMPTY` | 命中文件存在但字节数为 0（或小于 `--min-bytes`） |
+| `MISSING` | 没有任何文件命中 |
+
+**当作提交前的自检关卡**（推荐用法）：把 `--spec` 换成你当前挑战的真实清单原文，
+在仓库根目录跑一次，`exit=0` 再点提交。
+
+---
+
+## 四、示例（真实输出，非手抄）
+
+`examples/` 下有三个可复现样例目录，`examples/expected/` 里的期望输出由脚本调用审计器
+**机器生成**。三份实测结果：
+
+| 样例 | 构造方式 | 实测退出码 | 判定分布 |
+| --- | --- | --- | --- |
+| `sample-ready` | 五类交付物齐备且非空 | `0` | `PASS` × 5 |
+| `sample-incomplete` | 缺 2 类、1 类为 0 字节 | `1` | `PASS` × 2、`MISSING` × 2、`EMPTY` × 1 |
+| `sample-fuzzy` | 文件名大小写/全半角不一致 | `0` | `PASS_FUZZY` × 2 |
+
+三种样例合起来覆盖了全部四种判定，改动审计器代码后可以拿它们当**回归基线**：
+判定变了就说明改坏了。详见 [`examples/README.md`](examples/README.md)。
+
+---
+
+## 五、项目结构
+
+```
+mini-/
+├── README.md                      # 本文件
+├── LICENSE                        # MIT
+├── .gitignore                     # 忽略可再生成物；build/ 等 CI 证据强制入库
+├── AI_LOG.md                      # AI 使用日志（C5 要求）
+├── ATTRIBUTION.md                 # 拿来说明：借鉴来源与致谢
+├── CHANGELOG.md                   # 更新日志（Keep a Changelog 格式）
+├── CONTRIBUTING.md                # 贡献指南与缺陷报告要求
+│
+├── skills/challenge-deliverable-auditor/   # ★ 本项目主线：审计器
+│   ├── SKILL.md                   # 技能定义与使用说明
+│   ├── scripts/audit.py           # 实现（纯标准库）
+│   └── references/spec-format.md  # --spec 模式串格式说明
+│
+├── examples/                      # 可复现样例 + 机器生成的期望输出
+│   ├── README.md
+│   ├── sample-ready/  sample-incomplete/  sample-fuzzy/
+│   └── expected/                  # *.json / *.md（脚本生成）
+│
+├── .github/
+│   ├── workflows/repo-quality.yml # C5：脚本语法 + 样例回归 + 必备文件存在性
+│   ├── workflows/build-paper.yml  # C2：LaTeX 真实编译
+│   ├── ISSUE_TEMPLATE/            # bug_report / feature_request
+│   └── PULL_REQUEST_TEMPLATE.md
+│
+└── 其他挑战内容（互不依赖，见第七节）
+    ├── course-cn/  pipeline/  source/  glossary.csv  # C1 中文讲义管线
+    ├── paper.tex  references.bib  c2-f1-probe/       # C2 论文与保真探针
+    ├── 2025105400247_C4_*                            # C4 技能分享四件套
+    └── build/  reports/                              # CI 与校验证据
+```
+
+---
+
+## 六、技术栈
+
+- **语言**：Python 3.8+（仅标准库：`argparse` / `pathlib` / `fnmatch` / `json` / `zipfile`）
+- **无外部依赖**：无 `requirements.txt`，无虚拟环境要求，无网络访问
+- **技能容器**：`.skill` 包为 ZIP 容器（顶层目录 = 技能名），文件头 `50 4B 03 04`
+- **CI**：GitHub Actions（`ubuntu-latest`），本机无需安装任何东西
+- **平台**：Windows / macOS / Linux 均可运行（脚本为纯 ASCII，路径用 `pathlib`）
+
+---
+
+## 七、AI 生成说明
+
+本项目按挑战要求使用 AI 辅助开发，完整过程记录在 [`AI_LOG.md`](AI_LOG.md)，
+人机分工与采纳/否决的判断记录在 [`ATTRIBUTION.md`](ATTRIBUTION.md) 与 C4 的 AI 日志中。
+
+**一句话概括分工**：AI 负责澄清、编码、跑测；人负责选方向、核对数字是否真实、决定归档。
+
+五条自设约束贯穿全程：
+
+1. 要原文不要摘要（先读 `CHALLENGE.md` 与平台清单原文，不看二手转述）；
+2. 要可执行不要可描述（结论必须能变成一条可复跑的命令）；
+3. 证据必须机器生成（`examples/expected/` 由脚本生成，禁止手抄）；
+4. 先跑再写文档（先对真实目录跑出结果，再落笔描述结果）；
+5. 必须列出反例（每节至少给一个失败样例，如 `sample-incomplete`）。
+
+**如实声明的局限**：未做大规模语料压测；未覆盖极端 Unicode 归一化场景；
+审计器只做交付物存在性与命名判定，**不判断内容质量**。
+
+---
+
+## 八、借鉴来源
+
+借鉴来源、原创边界与许可说明见 [`ATTRIBUTION.md`](ATTRIBUTION.md)。要点：
+
+- 原创：审计器全部代码与文档、样例目录与生成脚本、`pipeline/` 讲义流水线、`c2-f1-probe/` 探针、本仓库工程文件；
+- 借鉴：Claude Skill 的 `SKILL.md` 结构约定、Keep a Changelog 写法、语义化版本、GitHub Actions 官方 workflow 语法、Stanford CS146S 公开作业原文（C1，仅作翻译来源）。
+
+## 九、License
+
+[MIT](LICENSE) © 2026 s897k8stkz-sketch

@@ -22,6 +22,22 @@ TEMP_SUFFIX = (".tmp", ".bak", ".swp", ".crdownload", ".part")
 PLACEHOLDER = ("untitled", "新建文本文档", "无标题", "新建 文本文档")
 
 
+def display_dir(root):
+    """报告里记录的目录：优先用「相对当前工作目录」的形式。
+
+    绝对路径会把维护者本机的目录结构写进报告，别人 clone 之后无法与自己的结果逐字段
+    比对；因此只在相对路径不往上层跑（不出现 '..'）时采用相对形式，否则退回绝对路径。
+    """
+    abspath = os.path.abspath(root)
+    try:
+        rel = os.path.relpath(abspath, os.getcwd()).replace("\\", "/")
+    except ValueError:  # Windows 跨盘符时 relpath 会抛错
+        return abspath.replace("\\", "/")
+    if rel == ".." or rel.startswith("../"):
+        return abspath.replace("\\", "/")
+    return rel
+
+
 def norm(text):
     return (text or "").strip().strip('"').strip("'").lower()
 
@@ -116,7 +132,7 @@ def audit(root, spec, min_bytes=1):
 
     failed = [r for r in results if r["verdict"] in ("MISSING", "EMPTY")]
     return {
-        "dir": os.path.abspath(root),
+        "dir": display_dir(root),
         "spec": spec,
         "min_bytes": min_bytes,
         "file_count": len(items),

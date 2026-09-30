@@ -1,0 +1,48 @@
+{
+  "dir": "examples/sample-fuzzy",
+  "spec": "教学说明,demo",
+  "min_bytes": 1,
+  "file_count": 2,
+  "ready": true,
+  "passed": 2,
+  "required": 2,
+  "requirements": [
+    {
+      "requirement": "教学说明",
+      "verdict": "PASS_FUZZY",
+      "matches": [
+        {
+          "rel": "C4-教学说明.md",
+          "size": 80,
+          "match": "fuzzy"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "demo",
+      "verdict": "PASS_FUZZY",
+      "matches": [
+        {
+          "rel": "C4-demo.md",
+          "size": 54,
+          "match": "fuzzy"
+        }
+      ],
+      "usable": 1
+    }
+  ],
+  "risks": [],
+  "inventory": [
+    {
+      "name": "C4-demo.md",
+      "rel": "C4-demo.md",
+      "size": 54
+    },
+    {
+      "name": "C4-教学说明.md",
+      "rel": "C4-教学说明.md",
+      "size": 80
+    }
+  ]
+}
