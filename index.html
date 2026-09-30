@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>mini- · 挑战交付物仓库</title>
+<style>
+  :root { --fg:#1f2933; --muted:#66788a; --line:#e3e8ee; --accent:#2563eb; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:48px 24px; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; color:var(--fg); background:#fafbfc; line-height:1.65; }
+  main { max-width:860px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:12px; padding:40px; }
+  h1 { margin:0 0 8px; font-size:26px; }
+  .sub { color:var(--muted); margin:0 0 28px; }
+  h2 { font-size:16px; margin:32px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--line); }
+  ul { padding-left:20px; margin:0; }
+  li { margin:6px 0; }
+  a { color:var(--accent); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  code { background:#f1f4f8; padding:1px 5px; border-radius:4px; font-size:.9em; }
+  .cta { display:inline-block; margin:4px 0 0; padding:10px 18px; background:var(--accent); color:#fff; border-radius:8px; font-weight:600; }
+  .cta:hover { text-decoration:none; opacity:.92; }
+  footer { margin-top:36px; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>mini- · 挑战交付物仓库</h1>
+  <p class="sub">Vibe Coding / AI4Math 挑战的公开交付物集合 —— 每条结论都配一条可照抄的复跑命令。</p>
+
+  <h2>在线应用</h2>
+  <p><a class="cta" href="apps/c6-deliverable-auditor-web/">打开交付物审计器 · Web 版</a></p>
+  <p style="color:var(--muted);font-size:14px;margin-top:10px">把平台要求清单粘进来，选一个文件夹，就能在提交前照出「缺文件 / 空文件 / 临时文件」。纯静态、不上传、无后端。</p>
+
+  <h2>仓库导览</h2>
+  <ul>
+    <li><code>apps/c6-deliverable-auditor-web/</code> — C6：浏览器版交付物审计器（单页应用）</li>
+    <li><code>skills/challenge-deliverable-auditor/</code> — C4：同名 Python 技能包（判定内核与 Web 版同源）</li>
+    <li><code>paper.tex</code> · <code>references.bib</code> · <code>build/</code> — C2：AI for Math 论文与真实 LaTeX 编译证据</li>
+    <li><code>course-cn/</code> · <code>glossary.csv</code> — C1：课程资料中文讲义与术语表</li>
+    <li><code>examples/</code> · <code>reports/</code> — 回归基线与自审报告</li>
+    <li><code>README.md</code> · <code>CONTRIBUTING.md</code> · <code>CHANGELOG.md</code> · <code>ATTRIBUTION.md</code> — 工程与署名要素</li>
+  </ul>
+
+  <h2>三分钟自验</h2>
+  <ul>
+    <li><code>pwsh apps/c6-deliverable-auditor-web/tests/run-parity.ps1</code> → 期望 6/6 PASS</li>
+    <li><code>node apps/c6-deliverable-auditor-web/js/audit-cli.mjs --dir apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad --spec "*app链接*,*demo*,*repo链接*,*AI日志*"</code> → 期望 NOT READY，退出码 1</li>
+  </ul>
+
+  <footer>
+    仓库源码：<a href="https://github.com/s897k8stkz-sketch/mini-">github.com/s897k8stkz-sketch/mini-</a> ·
+    署名与复用来源见 <a href="ATTRIBUTION.md">ATTRIBUTION.md</a>
+  </footer>
+</main>
+</body>
+</html>

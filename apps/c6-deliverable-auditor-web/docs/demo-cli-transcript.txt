@@ -1,0 +1,105 @@
+# 命令行外壳 · 真实输出记录（C6）
+
+- 采集时间：2026-09-30（本地）
+- 工具链：Node v24.17.0 / Python 3.12.13 / Windows PowerShell
+- 采集方式：`node js/audit-cli.mjs ...` 的输出原样复制，未做美化
+
+---
+
+## 1) 正例夹具：`tests/fixtures/submit-ok`
+
+```text
+$ node js/audit-cli.mjs --dir tests/fixtures/submit-ok --spec "*app链接*,*demo*,*repo链接*,*AI日志*"
+
+# 交付物审计报告
+
+- 目录：`tests/fixtures/submit-ok`
+- 要求清单：`*app链接*,*demo*,*repo链接*,*AI日志*`
+- 结论：**READY 可以提交**（4/4 项满足，共 5 个文件）
+
+| # | 要求模式 | 判定 | 命中文件 | 大小 |
+|---|----------|------|----------|------|
+| 1 | `*app链接*` | PASS | `2025105400247_C6_app链接.md` | 314 |
+| 2 | `*demo*` | PASS | `2025105400247_C6_demo.md`<br>`sub/demo补充.md` | 286<br>99 |
+| 3 | `*repo链接*` | PASS | `2025105400247_C6_repo链接.md` | 136 |
+| 4 | `*ai日志*` | PASS | `2025105400247_C6_AI日志.md` | 123 |
+
+EXIT=0
+```
+
+注意第 2 行：`*demo*` 同时命中子目录里的 `sub/demo补充.md` —— 说明扫描是**递归**的，不只是顶层。
+
+---
+
+## 2) 模糊命中：`tests/fixtures/submit-fuzzy`
+
+```text
+$ node js/audit-cli.mjs --dir tests/fixtures/submit-fuzzy --spec "*AI日志*"
+
+# 交付物审计报告
+
+- 目录：`tests/fixtures/submit-fuzzy`
+- 要求清单：`*AI日志*`
+- 结论：**READY 可以提交**（1/1 项满足，共 1 个文件）
+
+| # | 要求模式 | 判定 | 命中文件 | 大小 |
+|---|----------|------|----------|------|
+| 1 | `*ai日志*` | PASS | `2025105400247_C6_AI日志.md` | 371 |
+
+EXIT=0
+```
+
+---
+
+## 3) 反例夹具：`tests/fixtures/submit-bad`（故意埋坑）
+
+```text
+$ node js/audit-cli.mjs --dir tests/fixtures/submit-bad --spec "*app链接*,*demo*,*repo链接*,*AI日志*"
+
+# 交付物审计报告
+
+- 目录：`tests/fixtures/submit-bad`
+- 要求清单：`*app链接*,*demo*,*repo链接*,*AI日志*`
+- 结论：**NOT READY 不可提交**（2/4 项满足，共 6 个文件）
+
+| # | 要求模式 | 判定 | 命中文件 | 大小 |
+|---|----------|------|----------|------|
+| 1 | `*app链接*` | EMPTY | `2025105400247_C6_app链接.md` | 0 |
+| 2 | `*demo*` | PASS | `C6_demo.md` | 180 |
+| 3 | `*repo链接*` | PASS | `2025105400247_C6_repo链接.md` | 81 |
+| 4 | `*ai日志*` | MISSING | — | — |
+
+## 风险项
+
+- **[error]** `2025105400247_C6_app链接.md` — 0 字节文件：几乎必然被判为交付物缺失
+- **[warn]** `~$草稿.md` — 疑似临时/锁文件，不应提交
+- **[warn]** `新建文本文档.txt` — 疑似未命名的占位文件
+
+## 整改清单
+
+- `*app链接*` 命中的文件全部为空（<1 字节），需补内容。
+- 缺少 `*ai日志*` 对应的文件，需新增。
+
+EXIT=1
+```
+
+这个反例是**故意**构造的：0 字节文件、Office 临时锁文件 `~$草稿.md`、占位文件、以及放在 `旧版/` 子目录里的错误命名日志（`C6_AI_LOG.md`，因为不匹配 `*AI日志*` 而正确判为 MISSING）。工具在这组输入上必须报错 —— 一个只会说「READY」的审计器等于没有审计器。
+
+---
+
+## 4) 一致性与汇总
+
+同一批夹具在 Python 实现（C4 技能包 `skills/challenge-deliverable-auditor/scripts/audit.py`）与 JS 实现（`js/audit-cli.mjs`）上分别跑一遍，逐字段比对结论、命中文件与风险项：
+
+```text
+$ pwsh tests/run-parity.ps1
+检查 0 静态语法：JS 全量语法检查 + Python 编译   PASS
+检查 1 正例夹具：双实现结论一致且 4/4 满足        PASS
+检查 2 模糊命中：PASS_FUZZY 计入满足且两边一致     PASS
+检查 3 反例夹具：EMPTY / PASS / PASS / MISSING    PASS
+检查 4 真实目录（仓库根）：双实现一致且 4/4 满足   PASS
+检查 5 浏览器路径（无 name 字段）与命令行路径等价  PASS
+6/6 PASS  EXIT=0
+```
+
+机器可读的结果落在 `tests/out/parity-report.json`，两侧原始报告为 `tests/out/py-*.json` 与 `tests/out/js-*.json`。

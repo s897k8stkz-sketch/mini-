@@ -1,0 +1,92 @@
+{
+  "dir": "tests/fixtures/submit-ok",
+  "spec": "*app链接*,*demo*,*repo链接*,*AI日志*",
+  "min_bytes": 1,
+  "file_count": 5,
+  "ready": true,
+  "passed": 4,
+  "required": 4,
+  "requirements": [
+    {
+      "requirement": "*app链接*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "2025105400247_C6_app链接.md",
+          "size": 314,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*demo*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "2025105400247_C6_demo.md",
+          "size": 286,
+          "match": "exact"
+        },
+        {
+          "rel": "sub/demo补充.md",
+          "size": 99,
+          "match": "exact"
+        }
+      ],
+      "usable": 2
+    },
+    {
+      "requirement": "*repo链接*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "2025105400247_C6_repo链接.md",
+          "size": 136,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*ai日志*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "2025105400247_C6_AI日志.md",
+          "size": 123,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    }
+  ],
+  "risks": [],
+  "inventory": [
+    {
+      "name": "2025105400247_C6_AI日志.md",
+      "rel": "2025105400247_C6_AI日志.md",
+      "size": 123
+    },
+    {
+      "name": "2025105400247_C6_app链接.md",
+      "rel": "2025105400247_C6_app链接.md",
+      "size": 314
+    },
+    {
+      "name": "2025105400247_C6_demo.md",
+      "rel": "2025105400247_C6_demo.md",
+      "size": 286
+    },
+    {
+      "name": "2025105400247_C6_repo链接.md",
+      "rel": "2025105400247_C6_repo链接.md",
+      "size": 136
+    },
+    {
+      "name": "demo补充.md",
+      "rel": "sub/demo补充.md",
+      "size": 99
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>交付物审计器 · 提交前 30 秒自检</title>
+<meta name="description" content="把挑战平台的交付物要求清单变成可执行的提交前自检：确定性规则内核 + AI 解读与整改建议。">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <h1>交付物审计器 <span class="tag">Web 版</span></h1>
+    <p class="sub">把「提交前检查」做成一条 30 秒跑完的流水线：<strong>本地规则内核判命中</strong>，<strong>AI 负责解读与整改</strong>。规则内核离线可跑、结果可复现；AI 只做规则做不到的事（读懂要求原文、给整改顺序）。</p>
+    <nav class="topnav">
+      <a href="#step1">① 清单</a><a href="#step2">② 交付物</a><a href="#step3">③ 本地审计</a><a href="#step4">④ AI 诊断</a><a href="#settings">设置</a>
+      <a id="repo-link" class="ghost" href="https://github.com/s897k8stkz-sketch/mini-.git" target="_blank" rel="noopener">源码仓库</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="banner" class="banner" hidden><span id="banner-text"></span></div>
+
+  <section class="card" id="step1">
+    <h2>① 要求清单 <span class="hint">平台把要求写成一串通配模式，例如 <code>*app链接*,*demo*,*repo链接*,*AI日志*</code></span></h2>
+    <label class="field">
+      <span>挑战要求原文（可留空；有原文时 AI 更容易理解要交什么）</span>
+      <textarea id="challenge-text" rows="3" placeholder="把挑战页面的「交付物 / Deliverables」段落原样粘进来"></textarea>
+    </label>
+    <label class="field">
+      <span>审计清单（决定判 PASS / EMPTY / MISSING 的模式串）</span>
+      <input id="spec" type="text" value="*app链接*,*demo*,*repo链接*,*AI日志*" spellcheck="false">
+    </label>
+    <div class="row">
+      <button id="gen-spec" class="btn">用 AI 从要求原文生成清单</button>
+      <button id="btn-sample" class="btn ghost">载入内置样例（本地规则审计，不调用 AI）</button>
+      <span id="gen-status" class="status"></span>
+    </div>
+  </section>
+
+  <section class="card" id="step2">
+    <h2>② 选择交付物 <span class="hint">文件只在你的浏览器里被读取文件名与大小，不上传</span></h2>
+    <div id="dropzone" class="dropzone">
+      <p><strong>把交付物文件夹拖到这里</strong>，或者</p>
+      <div class="row">
+        <button id="btn-folder" class="btn">选择文件夹</button>
+        <button id="btn-files" class="btn ghost">选择多个文件</button>
+      </div>
+      <input id="folder-input" type="file" webkitdirectory directory multiple hidden>
+      <input id="files-input" type="file" multiple hidden>
+      <p class="tiny">只读取文件名 / 相对路径 / 字节大小，用于判定命中与空文件；不读取内容、不发生网络请求。</p>
+    </div>
+    <div id="inventory-info" class="info"></div>
+    <details id="inventory-box" hidden>
+      <summary>文件清单（<span id="inventory-count">0</span> 个）</summary>
+      <div class="tablewrap"><table id="inventory-table"><thead><tr><th>相对路径</th><th class="num">字节</th></tr></thead><tbody id="inventory-body"></tbody></table></div>
+    </details>
+  </section>
+
+  <section class="card" id="step3">
+    <h2>③ 本地规则审计 <span class="hint">离线判定，随时可复跑；命令行同引擎见 js/audit-cli.mjs</span></h2>
+    <div class="row">
+      <label class="inline">空文件阈值 <input id="min-bytes" type="number" min="1" value="1" class="tiny-input"> 字节</label>
+      <button id="btn-run" class="btn">重新审计</button>
+      <span id="audit-status" class="status"></span>
+    </div>
+    <div id="audit-summary" class="summary"></div>
+    <div class="tablewrap"><table id="verdict-table">
+      <thead><tr><th class="num">#</th><th>要求模式</th><th>判定</th><th>命中文件</th><th class="num">字节</th></tr></thead>
+      <tbody id="verdict-body"></tbody>
+    </table></div>
+    <div id="risk-box" hidden><h3>风险项</h3><ul id="risk-list" class="risks"></ul></div>
+    <div class="row">
+      <button id="btn-copy" class="btn ghost">复制 Markdown 报告</button>
+      <button id="btn-json" class="btn ghost">导出 JSON</button>
+      <button id="btn-md" class="btn ghost">导出 Markdown</button>
+    </div>
+    <details id="md-box" hidden><summary>Markdown 报告</summary><textarea id="report-md" rows="12" readonly></textarea></details>
+  </section>
+
+  <section class="card" id="step4">
+    <h2>④ AI 诊断与整改计划 <span class="hint">把确定性报告翻译成「先改哪一条、怎么改」</span></h2>
+    <div class="row">
+      <button id="btn-diagnose" class="btn">生成诊断与整改计划</button>
+      <span id="diag-status" class="status"></span>
+    </div>
+    <div id="diag-out" class="diag"></div>
+    <div id="followup-box" hidden>
+      <label class="field"><span>追问（带上报告上下文，可多轮）</span>
+        <div class="row"><input id="followup-q" type="text" placeholder="例如：我的 demo 只有一张截图，会被扣分吗？">
+        <button id="btn-followup" class="btn">追问</button></div>
+      </label>
+      <div id="chat-out" class="chat"></div>
+    </div>
+  </section>
+
+  <section class="card" id="settings">
+    <h2>设置 <span class="hint">API Key 只存在本机浏览器 localStorage，不写入页面源码，也不会进仓库</span></h2>
+    <div class="grid2">
+      <label class="field"><span>模型服务</span><select id="provider"></select></label>
+      <label class="field"><span>接口地址</span><input id="base-url" type="text" spellcheck="false"></label>
+      <label class="field"><span>模型名</span><input id="model" type="text" spellcheck="false"></label>
+      <label class="field"><span>API Key（留空则不调用 AI）</span><input id="key" type="password" spellcheck="false" autocomplete="off"></label>
+    </div>
+    <div class="row">
+      <button id="btn-save" class="btn">保存设置</button>
+      <button id="btn-probe" class="btn ghost">连接自检（真发一次请求）</button>
+      <button id="btn-clear" class="btn ghost">清除本机设置</button>
+      <span id="ai-status" class="status"></span>
+    </div>
+    <p class="tiny" id="provider-note"></p>
+  </section>
+
+  <footer class="foot">
+    <p>本页面本身是 <strong>C6 Web Application</strong> 挑战的交付物：判定规则与 C4 技能包 <code>challenge-deliverable-auditor</code> 的 Python 版一致，等价性由 <code>tests/run-parity.ps1</code> 逐字段比对证明。</p>
+    <p>仓库：<a href="https://github.com/s897k8stkz-sketch/mini-.git" target="_blank" rel="noopener">s897k8stkz-sketch/mini-</a> · 许可 MIT · 无第三方依赖、无埋点。</p>
+  </footer>
+</main>
+
+<script src="js/audit-core.js"></script>
+<script src="js/ai-client.js"></script>
+<script src="sample/sample-data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/app-ai.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{
+  "dir": "tests/fixtures/submit-bad",
+  "spec": "*app链接*,*demo*,*repo链接*,*AI日志*",
+  "min_bytes": 1,
+  "file_count": 6,
+  "ready": false,
+  "passed": 2,
+  "required": 4,
+  "requirements": [
+    {
+      "requirement": "*app链接*",
+      "verdict": "EMPTY",
+      "matches": [
+        {
+          "rel": "2025105400247_C6_app链接.md",
+          "size": 0,
+          "match": "exact"
+        }
+      ],
+      "usable": 0
+    },
+    {
+      "requirement": "*demo*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "C6_demo.md",
+          "size": 180,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*repo链接*",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "2025105400247_C6_repo链接.md",
+          "size": 81,
+          "match": "exact"
+        }
+      ],
+      "usable": 1
+    },
+    {
+      "requirement": "*ai日志*",
+      "verdict": "MISSING",
+      "matches": [],
+      "usable": 0
+    }
+  ],
+  "risks": [
+    {
+      "level": "error",
+      "file": "2025105400247_C6_app链接.md",
+      "note": "0 字节文件：几乎必然被判为交付物缺失"
+    },
+    {
+      "level": "warn",
+      "file": "~$草稿.md",
+      "note": "疑似临时/锁文件，不应提交"
+    },
+    {
+      "level": "warn",
+      "file": "新建文本文档.txt",
+      "note": "疑似未命名的占位文件"
+    }
+  ],
+  "inventory": [
+    {
+      "name": "2025105400247_C6_app链接.md",
+      "rel": "2025105400247_C6_app链接.md",
+      "size": 0
+    },
+    {
+      "name": "2025105400247_C6_repo链接.md",
+      "rel": "2025105400247_C6_repo链接.md",
+      "size": 81
+    },
+    {
+      "name": "C6_demo.md",
+      "rel": "C6_demo.md",
+      "size": 180
+    },
+    {
+      "name": "~$草稿.md",
+      "rel": "~$草稿.md",
+      "size": 207
+    },
+    {
+      "name": "新建文本文档.txt",
+      "rel": "新建文本文档.txt",
+      "size": 19
+    },
+    {
+      "name": "C6_AI_LOG.md",
+      "rel": "旧版/C6_AI_LOG.md",
+      "size": 341
+    }
+  ]
+}

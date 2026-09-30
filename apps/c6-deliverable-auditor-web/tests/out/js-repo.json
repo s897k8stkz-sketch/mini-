@@ -1,0 +1,678 @@
+{
+  "dir": "D:/.cogseed/userWorkSpace/我的挑战有哪些-2/mini-",
+  "spec": "README.md,repo链接,AI日志,拿来说明",
+  "min_bytes": 1,
+  "file_count": 107,
+  "ready": true,
+  "passed": 4,
+  "required": 4,
+  "requirements": [
+    {
+      "requirement": "readme.md",
+      "verdict": "PASS",
+      "matches": [
+        {
+          "rel": "README.md",
+          "size": 8899,
+          "match": "exact"
+        },
+        {
+          "rel": "examples/README.md",
+          "size": 4168,
+          "match": "exact"
+        }
+      ],
+      "usable": 2
+    },
+    {
+      "requirement": "repo链接",
+      "verdict": "PASS_FUZZY",
+      "matches": [
+        {
+          "rel": "2025105400247_C5_repo链接.md",
+          "size": 3351,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/2025105400247_C6_repo链接.md",
+          "size": 81,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-ok/2025105400247_C6_repo链接.md",
+          "size": 136,
+          "match": "fuzzy"
+        }
+      ],
+      "usable": 3
+    },
+    {
+      "requirement": "ai日志",
+      "verdict": "PASS_FUZZY",
+      "matches": [
+        {
+          "rel": "2025105400247_C4_AI日志.md",
+          "size": 7182,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "2025105400247_C5_AI日志.md",
+          "size": 5859,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "AI日志.md",
+          "size": 6619,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "C2-AI日志.md",
+          "size": 10285,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-fuzzy/2025105400247_C6_AI日志.md",
+          "size": 371,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-ok/2025105400247_C6_AI日志.md",
+          "size": 123,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "examples/sample-incomplete/C4-AI日志.md",
+          "size": 0,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "examples/sample-ready/C4-AI日志.md",
+          "size": 113,
+          "match": "fuzzy"
+        }
+      ],
+      "usable": 7
+    },
+    {
+      "requirement": "拿来说明",
+      "verdict": "PASS_FUZZY",
+      "matches": [
+        {
+          "rel": "2025105400247_C5_拿来说明.md",
+          "size": 3366,
+          "match": "fuzzy"
+        },
+        {
+          "rel": "拿来说明.md",
+          "size": 5849,
+          "match": "fuzzy"
+        }
+      ],
+      "usable": 2
+    }
+  ],
+  "risks": [
+    {
+      "level": "error",
+      "file": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/2025105400247_C6_app链接.md",
+      "note": "0 字节文件：几乎必然被判为交付物缺失"
+    },
+    {
+      "level": "warn",
+      "file": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/~$草稿.md",
+      "note": "疑似临时/锁文件，不应提交"
+    },
+    {
+      "level": "warn",
+      "file": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/新建文本文档.txt",
+      "note": "疑似未命名的占位文件"
+    },
+    {
+      "level": "error",
+      "file": "examples/sample-incomplete/C4-AI日志.md",
+      "note": "0 字节文件：几乎必然被判为交付物缺失"
+    },
+    {
+      "level": "warn",
+      "file": "examples/sample-incomplete/新建文本文档.txt",
+      "note": "疑似未命名的占位文件"
+    }
+  ],
+  "inventory": [
+    {
+      "name": ".gitignore",
+      "rel": ".gitignore",
+      "size": 1340
+    },
+    {
+      "name": "2025105400247_C4_AI日志.md",
+      "rel": "2025105400247_C4_AI日志.md",
+      "size": 7182
+    },
+    {
+      "name": "2025105400247_C4_challenge-deliverable-auditor.skill",
+      "rel": "2025105400247_C4_challenge-deliverable-auditor.skill",
+      "size": 8134
+    },
+    {
+      "name": "2025105400247_C4_demo.md",
+      "rel": "2025105400247_C4_demo.md",
+      "size": 5647
+    },
+    {
+      "name": "2025105400247_C4_skill说明.md",
+      "rel": "2025105400247_C4_skill说明.md",
+      "size": 5809
+    },
+    {
+      "name": "2025105400247_C4_教学说明.md",
+      "rel": "2025105400247_C4_教学说明.md",
+      "size": 5917
+    },
+    {
+      "name": "2025105400247_C5_AI日志.md",
+      "rel": "2025105400247_C5_AI日志.md",
+      "size": 5859
+    },
+    {
+      "name": "2025105400247_C5_repo链接.md",
+      "rel": "2025105400247_C5_repo链接.md",
+      "size": 3351
+    },
+    {
+      "name": "2025105400247_C5_拿来说明.md",
+      "rel": "2025105400247_C5_拿来说明.md",
+      "size": 3366
+    },
+    {
+      "name": "AAR.md",
+      "rel": "AAR.md",
+      "size": 4234
+    },
+    {
+      "name": "AI_LOG.md",
+      "rel": "AI_LOG.md",
+      "size": 8863
+    },
+    {
+      "name": "AI日志.md",
+      "rel": "AI日志.md",
+      "size": 6619
+    },
+    {
+      "name": "ATTRIBUTION.md",
+      "rel": "ATTRIBUTION.md",
+      "size": 5692
+    },
+    {
+      "name": "C2-AAR.md",
+      "rel": "C2-AAR.md",
+      "size": 6117
+    },
+    {
+      "name": "C2-AI日志.md",
+      "rel": "C2-AI日志.md",
+      "size": 10285
+    },
+    {
+      "name": "CHANGELOG.md",
+      "rel": "CHANGELOG.md",
+      "size": 3311
+    },
+    {
+      "name": "CONTRIBUTING.md",
+      "rel": "CONTRIBUTING.md",
+      "size": 3172
+    },
+    {
+      "name": "LICENSE",
+      "rel": "LICENSE",
+      "size": 1074
+    },
+    {
+      "name": "README.md",
+      "rel": "README.md",
+      "size": 8899
+    },
+    {
+      "name": "styles.css",
+      "rel": "apps/c6-deliverable-auditor-web/css/styles.css",
+      "size": 5165
+    },
+    {
+      "name": "index.html",
+      "rel": "apps/c6-deliverable-auditor-web/index.html",
+      "size": 7216
+    },
+    {
+      "name": "ai-client.js",
+      "rel": "apps/c6-deliverable-auditor-web/js/ai-client.js",
+      "size": 8671
+    },
+    {
+      "name": "app-ai.js",
+      "rel": "apps/c6-deliverable-auditor-web/js/app-ai.js",
+      "size": 7686
+    },
+    {
+      "name": "app.js",
+      "rel": "apps/c6-deliverable-auditor-web/js/app.js",
+      "size": 14560
+    },
+    {
+      "name": "audit-cli.mjs",
+      "rel": "apps/c6-deliverable-auditor-web/js/audit-cli.mjs",
+      "size": 2248
+    },
+    {
+      "name": "audit-core.js",
+      "rel": "apps/c6-deliverable-auditor-web/js/audit-core.js",
+      "size": 8085
+    },
+    {
+      "name": "inventory-fs.mjs",
+      "rel": "apps/c6-deliverable-auditor-web/js/inventory-fs.mjs",
+      "size": 1802
+    },
+    {
+      "name": "sample-data.js",
+      "rel": "apps/c6-deliverable-auditor-web/sample/sample-data.js",
+      "size": 2129
+    },
+    {
+      "name": "assert-report.mjs",
+      "rel": "apps/c6-deliverable-auditor-web/tests/assert-report.mjs",
+      "size": 3552
+    },
+    {
+      "name": "browser-path-check.mjs",
+      "rel": "apps/c6-deliverable-auditor-web/tests/browser-path-check.mjs",
+      "size": 1787
+    },
+    {
+      "name": "canonical-json.mjs",
+      "rel": "apps/c6-deliverable-auditor-web/tests/canonical-json.mjs",
+      "size": 2197
+    },
+    {
+      "name": "2025105400247_C6_app链接.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/2025105400247_C6_app链接.md",
+      "size": 0
+    },
+    {
+      "name": "2025105400247_C6_repo链接.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/2025105400247_C6_repo链接.md",
+      "size": 81
+    },
+    {
+      "name": "C6_demo.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/C6_demo.md",
+      "size": 180
+    },
+    {
+      "name": "~$草稿.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/~$草稿.md",
+      "size": 207
+    },
+    {
+      "name": "新建文本文档.txt",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/新建文本文档.txt",
+      "size": 19
+    },
+    {
+      "name": "C6_AI_LOG.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-bad/旧版/C6_AI_LOG.md",
+      "size": 341
+    },
+    {
+      "name": "2025105400247_C6_AI日志.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-fuzzy/2025105400247_C6_AI日志.md",
+      "size": 371
+    },
+    {
+      "name": "2025105400247_C6_AI日志.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-ok/2025105400247_C6_AI日志.md",
+      "size": 123
+    },
+    {
+      "name": "2025105400247_C6_app链接.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-ok/2025105400247_C6_app链接.md",
+      "size": 314
+    },
+    {
+      "name": "2025105400247_C6_demo.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-ok/2025105400247_C6_demo.md",
+      "size": 286
+    },
+    {
+      "name": "2025105400247_C6_repo链接.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-ok/2025105400247_C6_repo链接.md",
+      "size": 136
+    },
+    {
+      "name": "demo补充.md",
+      "rel": "apps/c6-deliverable-auditor-web/tests/fixtures/submit-ok/sub/demo补充.md",
+      "size": 99
+    },
+    {
+      "name": "js-bad.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/js-bad.json",
+      "size": 2080
+    },
+    {
+      "name": "js-fuzzy.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/js-fuzzy.json",
+      "size": 575
+    },
+    {
+      "name": "js-ok.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/js-ok.json",
+      "size": 1881
+    },
+    {
+      "name": "js-repo.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/js-repo.json",
+      "size": 16592
+    },
+    {
+      "name": "parity-report.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/parity-report.json",
+      "size": 1155
+    },
+    {
+      "name": "py-bad.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/py-bad.json",
+      "size": 2180
+    },
+    {
+      "name": "py-fuzzy.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/py-fuzzy.json",
+      "size": 604
+    },
+    {
+      "name": "py-ok.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/py-ok.json",
+      "size": 1971
+    },
+    {
+      "name": "py-repo.json",
+      "rel": "apps/c6-deliverable-auditor-web/tests/out/py-repo.json",
+      "size": 17268
+    },
+    {
+      "name": "run-parity.ps1",
+      "rel": "apps/c6-deliverable-auditor-web/tests/run-parity.ps1",
+      "size": 8606
+    },
+    {
+      "name": "BUILD-EVIDENCE.md",
+      "rel": "build/BUILD-EVIDENCE.md",
+      "size": 1240
+    },
+    {
+      "name": "PROBE-EVIDENCE.md",
+      "rel": "build/PROBE-EVIDENCE.md",
+      "size": 491
+    },
+    {
+      "name": "compile-log.txt",
+      "rel": "build/compile-log.txt",
+      "size": 11311
+    },
+    {
+      "name": "paper.pdf",
+      "rel": "build/paper.pdf",
+      "size": 266446
+    },
+    {
+      "name": "RESULTS.md",
+      "rel": "c2-f1-probe/RESULTS.md",
+      "size": 3703
+    },
+    {
+      "name": "check-metrics.py",
+      "rel": "c2-f1-probe/check-metrics.py",
+      "size": 2984
+    },
+    {
+      "name": "probe-cases.json",
+      "rel": "c2-f1-probe/probe-cases.json",
+      "size": 5167
+    },
+    {
+      "name": "results.json",
+      "rel": "c2-f1-probe/probe-output/results.json",
+      "size": 12881
+    },
+    {
+      "name": "run-probe.py",
+      "rel": "c2-f1-probe/run-probe.py",
+      "size": 5310
+    },
+    {
+      "name": "00-课程总览.md",
+      "rel": "course-cn/00-课程总览.md",
+      "size": 4829
+    },
+    {
+      "name": "week1-讲义.md",
+      "rel": "course-cn/week1-讲义.md",
+      "size": 2107
+    },
+    {
+      "name": "week2-讲义.md",
+      "rel": "course-cn/week2-讲义.md",
+      "size": 4097
+    },
+    {
+      "name": "week3-讲义.md",
+      "rel": "course-cn/week3-讲义.md",
+      "size": 4003
+    },
+    {
+      "name": "week4-讲义.md",
+      "rel": "course-cn/week4-讲义.md",
+      "size": 7126
+    },
+    {
+      "name": "week5-讲义.md",
+      "rel": "course-cn/week5-讲义.md",
+      "size": 4763
+    },
+    {
+      "name": "week6-讲义.md",
+      "rel": "course-cn/week6-讲义.md",
+      "size": 2557
+    },
+    {
+      "name": "week7-讲义.md",
+      "rel": "course-cn/week7-讲义.md",
+      "size": 2872
+    },
+    {
+      "name": "week8-讲义.md",
+      "rel": "course-cn/week8-讲义.md",
+      "size": 4293
+    },
+    {
+      "name": "README.md",
+      "rel": "examples/README.md",
+      "size": 4168
+    },
+    {
+      "name": "sample-fuzzy.json",
+      "rel": "examples/expected/sample-fuzzy.json",
+      "size": 900
+    },
+    {
+      "name": "sample-fuzzy.md",
+      "rel": "examples/expected/sample-fuzzy.md",
+      "size": 387
+    },
+    {
+      "name": "sample-incomplete.json",
+      "rel": "examples/expected/sample-incomplete.json",
+      "size": 1997
+    },
+    {
+      "name": "sample-incomplete.md",
+      "rel": "examples/expected/sample-incomplete.md",
+      "size": 955
+    },
+    {
+      "name": "sample-ready.json",
+      "rel": "examples/expected/sample-ready.json",
+      "size": 2074
+    },
+    {
+      "name": "sample-ready.md",
+      "rel": "examples/expected/sample-ready.md",
+      "size": 618
+    },
+    {
+      "name": "C4-demo.md",
+      "rel": "examples/sample-fuzzy/C4-demo.md",
+      "size": 54
+    },
+    {
+      "name": "C4-教学说明.md",
+      "rel": "examples/sample-fuzzy/C4-教学说明.md",
+      "size": 80
+    },
+    {
+      "name": "C4-AI日志.md",
+      "rel": "examples/sample-incomplete/C4-AI日志.md",
+      "size": 0
+    },
+    {
+      "name": "C4-demo.md",
+      "rel": "examples/sample-incomplete/C4-demo.md",
+      "size": 93
+    },
+    {
+      "name": "C4-skill说明.md",
+      "rel": "examples/sample-incomplete/C4-skill说明.md",
+      "size": 105
+    },
+    {
+      "name": "技能说明.md",
+      "rel": "examples/sample-incomplete/技能说明.md",
+      "size": 50
+    },
+    {
+      "name": "新建文本文档.txt",
+      "rel": "examples/sample-incomplete/新建文本文档.txt",
+      "size": 23
+    },
+    {
+      "name": "C4-AI日志.md",
+      "rel": "examples/sample-ready/C4-AI日志.md",
+      "size": 113
+    },
+    {
+      "name": "C4-demo.md",
+      "rel": "examples/sample-ready/C4-demo.md",
+      "size": 111
+    },
+    {
+      "name": "C4-skill说明.md",
+      "rel": "examples/sample-ready/C4-skill说明.md",
+      "size": 119
+    },
+    {
+      "name": "C4-教学说明.md",
+      "rel": "examples/sample-ready/C4-教学说明.md",
+      "size": 110
+    },
+    {
+      "name": "demo-package.skill",
+      "rel": "examples/sample-ready/demo-package.skill",
+      "size": 428
+    },
+    {
+      "name": "glossary.csv",
+      "rel": "glossary.csv",
+      "size": 3395
+    },
+    {
+      "name": "paper.tex",
+      "rel": "paper.tex",
+      "size": 37908
+    },
+    {
+      "name": "TRANSLATION-SPEC.md",
+      "rel": "pipeline/TRANSLATION-SPEC.md",
+      "size": 1995
+    },
+    {
+      "name": "build_glossary.py",
+      "rel": "pipeline/build_glossary.py",
+      "size": 4182
+    },
+    {
+      "name": "fetch_sources.py",
+      "rel": "pipeline/fetch_sources.py",
+      "size": 3640
+    },
+    {
+      "name": "run_all.ps1",
+      "rel": "pipeline/run_all.ps1",
+      "size": 911
+    },
+    {
+      "name": "verify_pipeline.py",
+      "rel": "pipeline/verify_pipeline.py",
+      "size": 4894
+    },
+    {
+      "name": "references.bib",
+      "rel": "references.bib",
+      "size": 10627
+    },
+    {
+      "name": "c5-self-audit.json",
+      "rel": "reports/c5-self-audit.json",
+      "size": 10575
+    },
+    {
+      "name": "c5-self-audit.md",
+      "rel": "reports/c5-self-audit.md",
+      "size": 1047
+    },
+    {
+      "name": "glossary-report.json",
+      "rel": "reports/glossary-report.json",
+      "size": 7576
+    },
+    {
+      "name": "verify-report.json",
+      "rel": "reports/verify-report.json",
+      "size": 7989
+    },
+    {
+      "name": "SKILL.md",
+      "rel": "skills/challenge-deliverable-auditor/SKILL.md",
+      "size": 5227
+    },
+    {
+      "name": "spec-format.md",
+      "rel": "skills/challenge-deliverable-auditor/references/spec-format.md",
+      "size": 3131
+    },
+    {
+      "name": "audit.py",
+      "rel": "skills/challenge-deliverable-auditor/scripts/audit.py",
+      "size": 8230
+    },
+    {
+      "name": "拿来说明.md",
+      "rel": "拿来说明.md",
+      "size": 5849
+    },
+    {
+      "name": "术语表.md",
+      "rel": "术语表.md",
+      "size": 3822
+    }
+  ]
+}

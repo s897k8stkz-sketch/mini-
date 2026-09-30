@@ -1,0 +1,31 @@
+{
+  "dir": "tests/fixtures/submit-fuzzy",
+  "spec": "AI日志",
+  "min_bytes": 1,
+  "file_count": 1,
+  "ready": true,
+  "passed": 1,
+  "required": 1,
+  "requirements": [
+    {
+      "requirement": "ai日志",
+      "verdict": "PASS_FUZZY",
+      "matches": [
+        {
+          "rel": "2025105400247_C6_AI日志.md",
+          "size": 371,
+          "match": "fuzzy"
+        }
+      ],
+      "usable": 1
+    }
+  ],
+  "risks": [],
+  "inventory": [
+    {
+      "name": "2025105400247_C6_AI日志.md",
+      "rel": "2025105400247_C6_AI日志.md",
+      "size": 371
+    }
+  ]
+}
